@@ -185,9 +185,9 @@ input:focus,textarea:focus,select:focus{border-color:var(--ember);box-shadow:0 0
   <div class="modalbox">
     <h2 class="h">Ajustes de IA</h2>
     <p class="sub">Tu key se guarda solo en este navegador, nunca en el código ni en ningún servidor.</p>
-    <div class="field"><label>Proveedor</label><select id="cfg_prov"><option value="openai">OpenAI (gpt-4o-mini)</option><option value="anthropic">Anthropic (Claude)</option></select></div>
+    <div class="field"><label>Proveedor</label><select id="cfg_prov"><option value="gemini">Google Gemini (GRATIS)</option><option value="openai">OpenAI (gpt-4o-mini)</option><option value="anthropic">Anthropic (Claude)</option></select></div>
     <div class="field"><label>API key</label><input id="cfg_key" type="password" placeholder="sk-..."></div>
-    <p class="note">La consigues en platform.openai.com (OpenAI) o console.anthropic.com (Anthropic). Se paga por uso, aparte de cualquier suscripción de chat.</p>
+    <p class="note">GRATIS: entra en aistudio.google.com → "Get API key" (no pide tarjeta), copia la clave y elige <b>Google Gemini</b> arriba. Alternativas de pago: platform.openai.com o console.anthropic.com.</p>
     <div class="barrow"><button class="btn sm" onclick="saveCfg()">Guardar</button><button class="btn ghost sm" onclick="closeCfg()">Cerrar</button><span id="cfg_msg" class="copied"></span></div>
   </div>
 </div>
@@ -223,7 +223,7 @@ const SEED = [
 
 /* ---------- helpers ---------- */
 function $(id){return document.getElementById(id);}
-function getCfg(){ try{return JSON.parse(localStorage.getItem('forja_cfg'))||{provider:'openai',key:''};}catch(e){return {provider:'openai',key:''};} }
+function getCfg(){ try{return JSON.parse(localStorage.getItem('forja_cfg'))||{provider:'gemini',key:''};}catch(e){return {provider:'gemini',key:''};} }
 function openCfg(){ const c=getCfg(); $('cfg_prov').value=c.provider; $('cfg_key').value=c.key; $('cfgModal').classList.add('on'); }
 function closeCfg(){ $('cfgModal').classList.remove('on'); }
 function saveCfg(){ localStorage.setItem('forja_cfg',JSON.stringify({provider:$('cfg_prov').value,key:$('cfg_key').value.trim()})); $('cfg_msg').textContent='✓ Guardado'; setTimeout(()=>{$('cfg_msg').textContent='';closeCfg();},900); }
@@ -233,7 +233,12 @@ function copyText(txt,btn){ const done=()=>{const o=btn.textContent;btn.textCont
   function fb(){const t=document.createElement('textarea');t.value=txt;document.body.appendChild(t);t.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(t);done();} }
 async function callAI(system,user,maxTokens){
   const c=getCfg(); if(!c.key) throw {nokey:true};
-  if(c.provider==='anthropic'){
+  if(c.provider==='gemini'){
+    const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key='+encodeURIComponent(c.key),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({systemInstruction:{parts:[{text:system}]},contents:[{parts:[{text:user}]}],generationConfig:{maxOutputTokens:Math.max(maxTokens,2048)}})});
+    const d=await r.json(); if(d.error) throw new Error(d.error.message||'error');
+    const g=(d.candidates&&d.candidates[0]&&d.candidates[0].content&&d.candidates[0].content.parts)?d.candidates[0].content.parts.map(p=>p.text||'').join(''):'';
+    if(!g) throw new Error('respuesta vacía'); return g.trim();
+  } else if(c.provider==='anthropic'){
     const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':c.key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-3-5-sonnet-20241022',max_tokens:maxTokens,system:system,messages:[{role:'user',content:user}]})});
     const d=await r.json(); if(d.error) throw new Error(d.error.message||'error'); return (d.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('\n').trim();
   } else {
