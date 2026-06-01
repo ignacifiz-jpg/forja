@@ -101,6 +101,8 @@ input:focus,textarea:focus,select:focus{border-color:var(--ember);box-shadow:0 0
     </div>
     <div class="field"><label>Beneficios clave (opcional)</label><input id="c_benef" placeholder="Ej: fresco, estiliza, envío gratis"></div>
     <button class="btn" id="c_btn" onclick="genCopy()">⚒ Generar copy</button>
+    <button class="btn ghost" onclick="copyCopyPrompt(this)" style="margin-top:10px">📋 Copiar para pegar en ChatGPT (gratis)</button>
+    <p class="note">Sin API key: copia esto y pégalo en tu ChatGPT, que te lo desarrolla con tu plan.</p>
     <div id="c_err" class="err hide"></div>
     <div id="c_out" class="out hide"></div>
     <div id="c_bar" class="hide"></div>
@@ -149,6 +151,8 @@ input:focus,textarea:focus,select:focus{border-color:var(--ember);box-shadow:0 0
     </div>
     <div class="field"><label>Idioma / voz</label><input id="w_voz" placeholder="Ej: español de España, mujer 60"></div>
     <button class="btn" id="w_btn" onclick="genWorkflow()">⚒ Crear workflow</button>
+    <button class="btn ghost" onclick="copyWfPrompt(this)" style="margin-top:10px">📋 Copiar para pegar en ChatGPT (gratis)</button>
+    <p class="note">Sin API key: copia esto y pégalo en tu ChatGPT, que te monta el workflow con tu plan.</p>
     <div id="w_err" class="err hide"></div>
     <div id="w_out" class="out hide"></div>
     <div id="w_bar" class="hide"></div>
@@ -237,6 +241,16 @@ async function callAI(system,user,maxTokens){
     const d=await r.json(); if(d.error) throw new Error(d.error.message||'error'); return d.choices[0].message.content.trim();
   }
 }
+
+/* ---------- prompts para pegar en ChatGPT (gratis) ---------- */
+function buildCopyPrompt(){
+  return "Actúa como copywriter senior de e-commerce y dropshipping en español de España (ganchos que frenan el scroll, prueba social, urgencia sutil, manejo de objeciones; sin promesas de salud ni dirigirte al cuerpo del que ve el anuncio; frases cortas y naturales).\n\nCrea el copy para este producto.\n\nProducto: "+($('c_nombre').value||'')+"\nQué es: "+($('c_que').value||'')+"\nPrecio: "+($('c_precio').value||'(no indicado)')+"\nPúblico: "+($('c_publico').value||'(general)')+"\nBeneficios: "+($('c_benef').value||'(dedúcelos)')+"\nTono: "+$('c_tono').value+"\n\nDevuelve en markdown: ## Narración AIDA (Atención / Interés-dolores / Deseo / Acción); ## Objeciones y respuesta; ## 3 variantes de texto principal (Meta Ads) A/B/C; ## Título y descripción (Meta); ## Gancho TikTok.";
+}
+function copyCopyPrompt(btn){ if(!$('c_nombre').value.trim()||!$('c_que').value.trim()){alert('Pon al menos el nombre del producto y qué es.');return;} copyText(buildCopyPrompt(),btn); }
+function buildWfPrompt(){
+  return "Actúa como director creativo de anuncios de e-commerce. Diseña el workflow completo para un vídeo corto vertical 9:16 que convierte, con el flujo 'arregla el still, no el vídeo' (primero la imagen perfecta y luego animarla image-to-video). Escribe los prompts de imagen y de animación en INGLÉS; el diálogo en el idioma pedido.\n\nIdea/producto: "+($('w_idea').value||'')+"\nFormato: "+$('w_fmt').value+"\nNº de escenas: "+($('w_esc').value||'3')+"\nIdioma/voz: "+($('w_voz').value||'español de España')+"\n\nDevuelve en markdown: ## Concepto y gancho (primeros 3s); ## Escenas (por cada una: ### Escena N — título, **Still prompt (imagen, EN)**, **Animation prompt (image-to-video, EN)**, **Diálogo/Texto**); ## Montaje (orden, subtítulos, música, duración); ## En Magnific (qué herramienta usar en cada paso).";
+}
+function copyWfPrompt(btn){ if(!$('w_idea').value.trim()){alert('Describe la idea o el producto del vídeo.');return;} copyText(buildWfPrompt(),btn); }
 
 /* ---------- tabs ---------- */
 function showTab(t){ ['copy','ugc','img','wf','mem'].forEach(x=>{$('tab-'+x).classList.toggle('hide',x!==t);}); document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b.dataset.tab===t)); }
