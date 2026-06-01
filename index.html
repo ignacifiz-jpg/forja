@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FORJA — centro de mando de anuncios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{ --bg:#15110d; --bg2:#1f1813; --card:#241c16; --line:#3a2d23; --ink:#f6efe6; --ink-dim:#b7a797; --ember:#ff5e2c; --ember-2:#ffa14a; --gold:#ffd089; }
+*{box-sizing:border-box;}
+html,body{margin:0;min-height:100%;}
+body{ font-family:'Hanken Grotesk',sans-serif; color:var(--ink);
+  background:radial-gradient(900px 500px at 85% -10%, rgba(255,94,44,.16), transparent 60%),radial-gradient(700px 600px at -10% 110%, rgba(255,161,74,.10), transparent 60%),var(--bg);
+  padding:clamp(16px,4vw,40px); }
+.grain{position:fixed;inset:0;pointer-events:none;opacity:.05;z-index:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+.wrap{max-width:920px;margin:0 auto;position:relative;z-index:1;}
+.brand{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;justify-content:space-between;}
+.brandL{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;}
+.logo{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(40px,8vw,76px);letter-spacing:-.04em;line-height:.9;background:linear-gradient(95deg,var(--gold),var(--ember) 55%,var(--ember-2));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.tag{color:var(--ink-dim);font-size:15px;font-weight:500;}
+.gear{background:transparent;border:1.5px solid var(--line);color:var(--ink-dim);border-radius:10px;padding:8px 12px;cursor:pointer;font-size:13px;font-weight:600;}
+.gear:hover{border-color:var(--ember);color:var(--ink);}
+.rule{height:2px;margin:22px 0 26px;border:0;background:linear-gradient(90deg,var(--ember),transparent);}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px;}
+.tab{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:15px;padding:11px 18px;border-radius:999px;cursor:pointer;border:1.5px solid var(--line);background:transparent;color:var(--ink-dim);transition:.18s;}
+.tab:hover{color:var(--ink);border-color:var(--ember);}
+.tab.on{background:var(--ember);color:#1a0f08;border-color:var(--ember);}
+.card{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:18px;padding:clamp(18px,3vw,28px);}
+.h{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:22px;letter-spacing:-.02em;margin:0 0 4px;}
+.sub{color:var(--ink-dim);font-size:14px;margin:0 0 20px;}
+label{display:block;font-size:13px;font-weight:600;color:var(--ink-dim);margin:0 0 6px;text-transform:uppercase;letter-spacing:.04em;}
+.field{margin-bottom:16px;}
+input,textarea,select{width:100%;background:#120d09;border:1px solid var(--line);color:var(--ink);border-radius:11px;padding:12px 14px;font-family:inherit;font-size:15px;outline:none;transition:.16s;resize:vertical;}
+input:focus,textarea:focus,select:focus{border-color:var(--ember);box-shadow:0 0 0 3px rgba(255,94,44,.18);}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media(max-width:560px){.row{grid-template-columns:1fr;}}
+.btn{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:16px;border:0;border-radius:12px;padding:14px 22px;cursor:pointer;color:#1a0f08;background:linear-gradient(95deg,var(--ember-2),var(--ember));transition:.16s;box-shadow:0 8px 22px -8px rgba(255,94,44,.6);}
+.btn:hover{transform:translateY(-1px);filter:brightness(1.06);}
+.btn:disabled{opacity:.55;cursor:wait;transform:none;}
+.btn.ghost{background:transparent;color:var(--ember);border:1.5px solid var(--ember);box-shadow:none;}
+.btn.sm{padding:9px 14px;font-size:14px;}
+.out{margin-top:22px;background:#120d09;border:1px solid var(--line);border-radius:14px;padding:20px 22px;font-size:15px;line-height:1.65;}
+.out h2{font-family:'Bricolage Grotesque',sans-serif;color:var(--ember-2);font-size:19px;margin:18px 0 6px;}
+.out h3{font-family:'Bricolage Grotesque',sans-serif;color:var(--gold);font-size:16px;margin:14px 0 4px;}
+.out strong{color:var(--ink);}
+.codebox{margin-top:18px;background:#0e0a07;border:1px solid var(--line);border-radius:14px;padding:18px;font-family:ui-monospace,Menlo,monospace;font-size:13px;line-height:1.6;color:#e7dccb;white-space:pre-wrap;word-break:break-word;}
+.barrow{display:flex;gap:10px;align-items:center;margin-top:16px;flex-wrap:wrap;}
+.copied{color:var(--gold);font-size:13px;font-weight:600;}
+.spinner{width:16px;height:16px;border:2px solid rgba(26,15,8,.4);border-top-color:#1a0f08;border-radius:50%;display:inline-block;vertical-align:-3px;margin-right:8px;animation:spin .7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.err{margin-top:16px;color:#ff9b7a;font-size:14px;background:rgba(255,94,44,.08);border:1px solid rgba(255,94,44,.3);border-radius:11px;padding:12px 14px;}
+.foot{text-align:center;color:var(--ink-dim);font-size:12.5px;margin-top:28px;}
+.kbitem{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px;background:#1b1510;}
+.kbtitle{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:15px;margin:0 0 4px;display:flex;justify-content:space-between;gap:10px;align-items:center;}
+.kbtext{color:var(--ink-dim);font-size:13.5px;line-height:1.5;}
+.tags{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;}
+.chip{font-size:11px;color:var(--gold);background:rgba(255,208,137,.1);border:1px solid rgba(255,208,137,.25);border-radius:999px;padding:3px 9px;}
+.badge{font-size:10.5px;color:var(--ember-2);border:1px solid rgba(255,161,74,.4);border-radius:999px;padding:2px 8px;font-weight:700;}
+.del{background:transparent;border:1px solid var(--line);color:var(--ink-dim);border-radius:8px;padding:4px 10px;font-size:12px;cursor:pointer;}
+.del:hover{color:#ff9b7a;border-color:#ff9b7a;}
+.count{font-size:13px;color:var(--ink-dim);margin:18px 0 12px;}
+.link{cursor:pointer;color:var(--ember);}
+.src{margin-top:14px;font-size:12.5px;color:var(--ink-dim);}
+.src b{color:var(--gold);}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:50;padding:20px;}
+.modal.on{display:flex;}
+.modalbox{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;max-width:460px;width:100%;}
+.hide{display:none;}
+.note{font-size:12.5px;color:var(--ink-dim);margin-top:8px;line-height:1.5;}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="wrap">
+  <div class="brand">
+    <div class="brandL"><div class="logo">FORJA</div><div class="tag">De producto a anuncio en minutos</div></div>
+    <button class="gear" onclick="openCfg()">⚙ API key</button>
+  </div>
+  <hr class="rule">
+  <div class="tabs">
+    <button class="tab on" data-tab="copy" onclick="showTab('copy')">Copy con IA</button>
+    <button class="tab" data-tab="ugc" onclick="showTab('ugc')">Prompt UGC</button>
+    <button class="tab" data-tab="img" onclick="showTab('img')">Prompt imagen</button>
+    <button class="tab" data-tab="mem" onclick="showTab('mem')">Memoria</button>
+  </div>
+
+  <!-- COPY -->
+  <div id="tab-copy" class="card">
+    <h2 class="h">Generador de copy con IA</h2>
+    <p class="sub">Datos del producto → narración AIDA, objeciones y variantes para Meta y TikTok. (Necesita tu API key.)</p>
+    <div class="row">
+      <div class="field"><label>Nombre del producto</label><input id="c_nombre" placeholder="Ej: Vestido Tora"></div>
+      <div class="field"><label>Precio</label><input id="c_precio" placeholder="Ej: 34,90 €"></div>
+    </div>
+    <div class="field"><label>Qué es (descríbelo)</label><textarea id="c_que" rows="2" placeholder="Ej: vestido midi de lino, fresco, no transparenta, para verano"></textarea></div>
+    <div class="row">
+      <div class="field"><label>Público objetivo</label><input id="c_publico" placeholder="Ej: mujeres 30-55, eventos verano"></div>
+      <div class="field"><label>Tono</label><select id="c_tono"><option>Vendedor pero natural</option><option>Emocional / aspiracional</option><option>Directo / oferta</option><option>Urgencia / escasez</option><option>Minimalista / elegante</option></select></div>
+    </div>
+    <div class="field"><label>Beneficios clave (opcional)</label><input id="c_benef" placeholder="Ej: fresco, estiliza, envío gratis"></div>
+    <button class="btn" id="c_btn" onclick="genCopy()">⚒ Generar copy</button>
+    <div id="c_err" class="err hide"></div>
+    <div id="c_out" class="out hide"></div>
+    <div id="c_bar" class="hide"></div>
+  </div>
+
+  <!-- UGC -->
+  <div id="tab-ugc" class="card hide">
+    <h2 class="h">Prompt de vídeo UGC</h2>
+    <p class="sub">Rellena los huecos y copia el prompt en inglés para Grok / Veo / Kling / Sora.</p>
+    <div class="field"><label>Producto en foco</label><input id="u_prod" oninput="renderUgc()" placeholder="Ej: linen flat cap in beige"></div>
+    <div class="row">
+      <div class="field"><label>Género del modelo</label><select id="u_gen" onchange="renderUgc()"><option value="mujer">mujer</option><option value="hombre">hombre</option></select></div>
+      <div class="field"><label>Edad aprox.</label><input id="u_edad" oninput="renderUgc()" placeholder="Ej: 60"></div>
+    </div>
+    <div class="field"><label>Acento / idioma</label><select id="u_acc" onchange="renderUgc()"><option>español de España (castellano)</option><option>neutral Castilian Spanish from Spain</option><option>Latin American Spanish</option><option>English (US)</option></select></div>
+    <div class="field"><label>Escena / fondo (opcional)</label><input id="u_esc" oninput="renderUgc()" placeholder="Ej: sunlit Mediterranean terrace at golden hour"></div>
+    <div class="field"><label>Diálogo</label><textarea id="u_dia" rows="3" oninput="renderUgc()" placeholder="Escríbelo tal cual lo quieres oír"></textarea></div>
+    <div class="field"><label>Duración (seg)</label><input id="u_seg" oninput="renderUgc()" placeholder="10"></div>
+    <div id="u_box" class="codebox"></div>
+    <div class="barrow"><button class="btn ghost" onclick="copyText(document.getElementById('u_box').innerText,this)">Copiar prompt UGC</button></div>
+  </div>
+
+  <!-- IMG -->
+  <div id="tab-img" class="card hide">
+    <h2 class="h">Prompt de imagen de producto</h2>
+    <p class="sub">Estructura JSON con referencia de modelo + producto (Nano Banana y similares).</p>
+    <div class="field"><label>Producto</label><input id="i_prod" oninput="renderImg()" placeholder="Ej: men's summer linen flat cap, oatmeal beige"></div>
+    <div class="field"><label>Detalle del producto (opcional)</label><textarea id="i_det" rows="2" oninput="renderImg()" placeholder="Tejido, costuras, forma..."></textarea></div>
+    <div class="field"><label>Escena / setting</label><textarea id="i_esc" rows="2" oninput="renderImg()" placeholder="Ej: lived-in minimalist bedroom at sunset, warm light"></textarea></div>
+    <div class="row">
+      <div class="field"><label>Estilo</label><input id="i_est" oninput="renderImg()" value="hyperrealistic editorial photography, cinematic, premium retail, film grain"></div>
+      <div class="field"><label>Marca (watermark, opcional)</label><input id="i_marca" oninput="renderImg()" placeholder="Ej: Diamond di Milano"></div>
+    </div>
+    <div id="i_box" class="codebox"></div>
+    <div class="barrow"><button class="btn ghost" onclick="copyText(document.getElementById('i_box').innerText,this)">Copiar prompt de imagen</button></div>
+  </div>
+
+  <!-- MEM -->
+  <div id="tab-mem" class="card hide">
+    <h2 class="h">Memoria · base de datos</h2>
+    <p class="sub">Responde solo con lo que tiene guardado. Si no lo sabe, lo dice. Añade lo tuyo y se guarda en tu navegador.</p>
+    <div class="field"><label>Pregúntale algo</label><textarea id="m_q" rows="2" placeholder="Ej: ¿qué es CBO? ¿cómo escalo el presupuesto?"></textarea></div>
+    <button class="btn" id="m_btn" onclick="askMem()">Buscar en mi memoria</button>
+    <div id="m_out" class="out hide"></div>
+    <div id="m_src" class="src hide"></div>
+    <div id="m_err" class="err hide"></div>
+    <div class="count" id="m_count"></div>
+    <div id="m_addform" class="kbitem hide">
+      <div class="field"><label>Título</label><input id="m_nt" placeholder="Ej: Mi proveedor de envío rápido"></div>
+      <div class="field"><label>Palabras clave (separadas por espacio)</label><input id="m_ntg" placeholder="proveedor envio aliexpress"></div>
+      <div class="field"><label>Contenido</label><textarea id="m_nc" rows="3" placeholder="Lo que quieras que recuerde"></textarea></div>
+      <button class="btn sm" onclick="addEntry()">Guardar ficha</button>
+    </div>
+    <div id="m_list"></div>
+  </div>
+
+  <div class="foot">FORJA · web personal · la memoria se guarda en este navegador</div>
+</div>
+
+<!-- CONFIG MODAL -->
+<div class="modal" id="cfgModal">
+  <div class="modalbox">
+    <h2 class="h">Ajustes de IA</h2>
+    <p class="sub">Tu key se guarda solo en este navegador, nunca en el código ni en ningún servidor.</p>
+    <div class="field"><label>Proveedor</label><select id="cfg_prov"><option value="openai">OpenAI (gpt-4o-mini)</option><option value="anthropic">Anthropic (Claude)</option></select></div>
+    <div class="field"><label>API key</label><input id="cfg_key" type="password" placeholder="sk-..."></div>
+    <p class="note">La consigues en platform.openai.com (OpenAI) o console.anthropic.com (Anthropic). Se paga por uso, aparte de cualquier suscripción de chat.</p>
+    <div class="barrow"><button class="btn sm" onclick="saveCfg()">Guardar</button><button class="btn ghost sm" onclick="closeCfg()">Cerrar</button><span id="cfg_msg" class="copied"></span></div>
+  </div>
+</div>
+
+<script>
+const SEED = [
+ {id:"s1",titulo:"Estructura de copy que convierte",tags:"copy anuncio estructura aida",contenido:"El texto de anuncio que más convierte sigue: gancho con dolor → solución → prueba social → oferta. Frases cortas y naturales."},
+ {id:"s2",titulo:"Políticas de Meta en el copy",tags:"meta ads politicas claims",contenido:"Meta penaliza dirigirse al cuerpo del que ve el anuncio ('disimula', 'para tu tipo de cuerpo') y las promesas de salud. Habla del producto, no del cuerpo del espectador."},
+ {id:"s3",titulo:"Orden de creativos por potencial",tags:"creativos video formato antes despues",contenido:"Antes/después frena más el scroll (contraste) → más presupuesto. Demostración es el segundo. Las imágenes, para retargeting, no para tráfico frío."},
+ {id:"s4",titulo:"ABO vs CBO",tags:"meta ads cbo abo presupuesto",contenido:"ABO = decides el presupuesto de cada ad set (control, ideal para testar con datos limpios). CBO = presupuesto a nivel campaña y Meta lo reparte al que rinde (para escalar ad sets ya validados). No cambies de uno a otro en una campaña que ya vende: resetea el aprendizaje."},
+ {id:"s5",titulo:"Añadir creativos a campaña ganadora",tags:"meta ads escalar creativos adset",contenido:"Mete los creativos DENTRO del ad set ganador (no crees uno nuevo: fragmenta el aprendizaje). 2-3 a la vez. No pauses los ganadores. Varía el ÁNGULO, no solo el diseño. Dales 3-5 días / ~50 conversiones."},
+ {id:"s6",titulo:"Reglas de aprendizaje y escalado en Meta",tags:"meta escalar aprendizaje presupuesto",contenido:"Sube el presupuesto en incrementos del 15-20% cada 3-4 días. Subirlo más del 20% de golpe resetea la fase de aprendizaje. Editar segmentación/optimización también."},
+ {id:"s7",titulo:"Recomendaciones Advantage+",tags:"meta advantage creative",contenido:"No actives todas las recomendaciones Advantage de golpe. Advantage+ Creative: una por una; algunas suben el CTR y otras distorsionan tu marca."},
+ {id:"s8",titulo:"Presupuesto inicial de ads (EE.UU.)",tags:"presupuesto ads inicio ecommerce",contenido:"Mínimo viable $1.000-1.500/mes (un canal, 2-3 productos). Recomendado $2.000-5.000/mes (Meta + Google, A/B). Agresivo $5.000-15.000/mes (+ TikTok, influencers)."},
+ {id:"s9",titulo:"Reglas de CAC y presupuesto",tags:"cac presupuesto kpi conversiones",contenido:"El CAC no debería superar el 30-40% del valor de la primera compra. ~50 conversiones/semana por campaña para que el algoritmo optimice. Reserva 3 meses de runway. $500-2.000 extra/mes para creativos."},
+ {id:"s10",titulo:"UTM en los anuncios",tags:"utm tracking analytics url",contenido:"Añade UTM en la URL del anuncio para saber qué creativo vende. Usa utm_content={{ad.name}} y Meta rellena el nombre automáticamente."},
+ {id:"s11",titulo:"KPIs sanos de tienda",tags:"kpi conversion carrito velocidad movil",contenido:"Conversión sana 1-3%. Abandono de carrito normal 60-80%. Carga: menos de 3 segundos. El 70-80% del tráfico es móvil: todo perfecto en móvil."},
+ {id:"s12",titulo:"Auditoría CRO: herramientas",tags:"cro herramientas analytics datos",contenido:"Mide antes de cambiar nada. GA4, Microsoft Clarity o Hotjar (mapas de calor y grabaciones), Search Console, PageSpeed Insights / GTmetrix."},
+ {id:"s13",titulo:"Ficha de producto que vende",tags:"ficha producto cro pagina",contenido:"Imágenes de calidad + vídeo, beneficios (no solo características), reseñas, urgencia sutil, FAQ y garantía visible. ¿Se entiende qué vendes en 3 segundos?"},
+ {id:"s14",titulo:"Checkout optimizado",tags:"checkout conversion pago envio",contenido:"Cuantos menos pasos mejor. Pagos express (Apple Pay, Shop Pay). Sin sorpresas de coste. Envío gratis a partir de X para subir el AOV."},
+ {id:"s15",titulo:"GIF como anuncio en Facebook",tags:"facebook creativo gif video",contenido:"Facebook permite subir GIFs como vídeo: se reproducen solos y rinden bien. Perfecto para productos que necesitan verse en movimiento."},
+ {id:"s16",titulo:"Urgencia creíble",tags:"urgencia copy oferta",contenido:"Usa fecha real ('Oferta hasta el domingo 12') en vez de cuenta atrás falsa. Específica y sin mentir: convierte sin quemar confianza."},
+ {id:"s17",titulo:"Collage de producto (formato C2)",tags:"collage creativo producto carrusel",contenido:"Collage de 5 secciones: 1) colgado en percha, 2) doblado, 3) puesto en modelo, 4) detalle macro, 5) imagen de beneficio."},
+ {id:"s18",titulo:"Prompt UGC: claves de calidad",tags:"ugc video prompt grok lipsync",contenido:"Plano medio (no muy cerca de la cara) disimula fallos de boca. Lip-sync sutil, boca neutra entre palabras, sin mandíbula exagerada. Genera 2-3 tomas y quédate con la mejor."},
+ {id:"s19",titulo:"Consistencia de voz con IA",tags:"voz audio elevenlabs grok consistencia",contenido:"Genera todas las escenas en la MISMA sesión y no cambies la descripción de la voz entre prompts. Alternativa fiable: ElevenLabs free (10.000 caracteres/mes) con voz fija del catálogo."},
+ {id:"s20",titulo:"Flujo 'arregla el still, no el vídeo'",tags:"imagen video nanobanana seedance workflow",contenido:"Genera primero la imagen estática perfecta (Nano Banana, barato) con avatar + producto, y luego anímala como frame inicial (Seedance). Apenas deforma cara ni producto."},
+ {id:"s21",titulo:"Prompt de imagen: estructura JSON",tags:"imagen prompt json referencia",contenido:"subject_reference (identidad exacta) + product_reference (color/material/forma exactos) + scene (setting, composición, luz, color, cámara) + style + negative_prompt."},
+ {id:"s22",titulo:"Texto sobre el vídeo en Meta",tags:"meta video cta texto",contenido:"Pon precio y 'envío gratis' como texto en los primeros 2 segundos del vídeo: sube el CTR. CTA del botón: 'Comprar'."},
+ {id:"s23",titulo:"Envío gratis responsive (Shopify/Releasit)",tags:"shopify codigo envio releasit responsive",contenido:"Para alinear 'Envío: Gratis' como el subtotal: div con display:flex; justify-content:space-between; width:100%. A prueba de bombas: 'Envío:' + span con el valor en línea."},
+ {id:"s24",titulo:"Optimizar un PC lento",tags:"pc hardware optimizar ssd ram",contenido:"Lo que más se nota: cambiar el disco mecánico por SSD. Luego RAM a 8-16GB. SO limpio o Linux Mint XFCE en equipos viejos. uBlock Origin + ahorro de memoria. No hay 'optimizadores mágicos'."},
+ {id:"s25",titulo:"Precisión real de transcripción",tags:"transcripcion ia precision whisper",contenido:"Ningún sistema da 99,9% automático. Los mejores rondan 5-8% de error (WER). Para acercarse al 99%: combinar modelos + corregir con un LLM + repaso humano."}
+];
+
+/* ---------- helpers ---------- */
+function $(id){return document.getElementById(id);}
+function getCfg(){ try{return JSON.parse(localStorage.getItem('forja_cfg'))||{provider:'openai',key:''};}catch(e){return {provider:'openai',key:''};} }
+function openCfg(){ const c=getCfg(); $('cfg_prov').value=c.provider; $('cfg_key').value=c.key; $('cfgModal').classList.add('on'); }
+function closeCfg(){ $('cfgModal').classList.remove('on'); }
+function saveCfg(){ localStorage.setItem('forja_cfg',JSON.stringify({provider:$('cfg_prov').value,key:$('cfg_key').value.trim()})); $('cfg_msg').textContent='✓ Guardado'; setTimeout(()=>{$('cfg_msg').textContent='';closeCfg();},900); }
+function mdToHtml(t){ let e=t.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); return e.replace(/^#{3,}\s*(.*)$/gm,"<h3>$1</h3>").replace(/^##\s*(.*)$/gm,"<h2>$1</h2>").replace(/^#\s*(.*)$/gm,"<h2>$1</h2>").replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>").replace(/\n/g,"<br/>"); }
+function copyText(txt,btn){ const done=()=>{const o=btn.textContent;btn.textContent='✓ Copiado';setTimeout(()=>btn.textContent=o,1500);};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(done).catch(()=>fb());}else fb();
+  function fb(){const t=document.createElement('textarea');t.value=txt;document.body.appendChild(t);t.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(t);done();} }
+async function callAI(system,user,maxTokens){
+  const c=getCfg(); if(!c.key) throw {nokey:true};
+  if(c.provider==='anthropic'){
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':c.key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-3-5-sonnet-20241022',max_tokens:maxTokens,system:system,messages:[{role:'user',content:user}]})});
+    const d=await r.json(); if(d.error) throw new Error(d.error.message||'error'); return (d.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('\n').trim();
+  } else {
+    const r=await fetch('https://api.openai.com/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+c.key},body:JSON.stringify({model:'gpt-4o-mini',max_tokens:maxTokens,messages:[{role:'system',content:system},{role:'user',content:user}]})});
+    const d=await r.json(); if(d.error) throw new Error(d.error.message||'error'); return d.choices[0].message.content.trim();
+  }
+}
+
+/* ---------- tabs ---------- */
+function showTab(t){ ['copy','ugc','img','mem'].forEach(x=>{$('tab-'+x).classList.toggle('hide',x!==t);}); document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b.dataset.tab===t)); }
+
+/* ---------- copy gen ---------- */
+async function genCopy(){
+  const nombre=$('c_nombre').value.trim(), que=$('c_que').value.trim();
+  const err=$('c_err'), out=$('c_out'), bar=$('c_bar'), btn=$('c_btn');
+  err.classList.add('hide'); out.classList.add('hide'); bar.classList.add('hide');
+  if(!nombre||!que){ err.textContent='Pon al menos el nombre del producto y qué es.'; err.classList.remove('hide'); return; }
+  const sys="Eres un copywriter senior de e-commerce y dropshipping que escribe en español de España. Copy de ficha y de anuncios para Meta y TikTok que convierte: ganchos que frenan el scroll, prueba social, urgencia sutil, manejo de objeciones. Evitas promesas de salud y no te diriges al cuerpo del que ve el anuncio. Frases cortas y naturales.";
+  const user="Crea el copy para este producto.\n\nProducto: "+nombre+"\nQué es: "+que+"\nPrecio: "+($('c_precio').value||'(no indicado)')+"\nPúblico: "+($('c_publico').value||'(general)')+"\nBeneficios: "+($('c_benef').value||'(dedúcelos)')+"\nTono: "+$('c_tono').value+"\n\nDevuelve en markdown, conciso:\n## Narración AIDA\n### Atención\n### Interés — Puntos de dolor\n### Deseo — Situación deseada\n### Acción\n## Objeciones y respuesta\n## 3 variantes de texto principal (Meta Ads) A/B/C\n## Título y descripción (Meta)\n## Gancho TikTok\nSin notas finales.";
+  btn.disabled=true; btn.innerHTML='<span class="spinner"></span>Forjando copy…';
+  try{
+    const t=await callAI(sys,user,2000);
+    out.innerHTML=mdToHtml(t); out.classList.remove('hide');
+    bar.innerHTML='<div class="barrow"><button class="btn ghost" onclick="copyText(this.closest(\'#c_bar\').dataset.t,this)">Copiar todo el copy</button></div>';
+    bar.dataset.t=t; bar.classList.remove('hide');
+  }catch(e){ err.textContent=e&&e.nokey?'Añade tu API key en ⚙ (arriba a la derecha) para usar la IA.':'No se pudo generar: '+(e.message||'error'); err.classList.remove('hide'); }
+  finally{ btn.disabled=false; btn.innerHTML='⚒ Generar copy'; }
+}
+
+/* ---------- ugc ---------- */
+function renderUgc(){
+  const seg=$('u_seg').value||'10', prod=$('u_prod').value||'[el producto]', gen=$('u_gen').value, edad=$('u_edad').value||'30', acc=$('u_acc').value, esc=$('u_esc').value, dia=$('u_dia').value||'[tu diálogo aquí]';
+  const p="Animate this image into a hyper-realistic, natural UGC-style selfie video, "+seg+" seconds long, vertical 9:16, filmed casually on a smartphone front camera. Keep the exact same person, outfit, hair, background and lighting. Preserve face and identity perfectly.\n\nThe subject is a "+gen+", around "+edad+" years old. They speak directly to camera with a warm genuine smile, relaxed, like talking to a friend — NOT a radio announcer. Natural micro-movements: head tilts, light hand gestures, soft blinking. Authentic and unpolished.\n\nProduct in focus: "+prod+". Keep it clearly visible and undistorted.\n"+(esc?"Setting: "+esc+".\n":"")+"\nDialogue (spoken clearly and naturally in "+acc+", natural pacing, no long pauses):\n\""+dia+"\"\n\nMOUTH & LIP-SYNC: subtle, precisely synced; mouth returns to a relaxed near-closed neutral between words. No exaggerated jaw drop, no wide-open mouth, no stretched or twitchy lips.\n\nAudio: clear natural voice, accurate lip-sync, soft ambient sound, no music.\nStyle: photorealistic, ultra-high quality, realistic skin texture, smooth 30fps. Avoid AI artifacts, facial warping or unnatural mouth movement.";
+  $('u_box').innerText=p;
+}
+
+/* ---------- img ---------- */
+function renderImg(){
+  const prod=$('i_prod').value||'[producto]', det=$('i_det').value||'Preserve EXACTLY its color, material, texture, cut, shape, stitching and proportions.', esc=$('i_esc').value||'[describe la escena: lugar, luz, ambiente]', est=$('i_est').value, marca=$('i_marca').value;
+  const j="{\n  \"subject_reference\": \"The person shown in the model reference image. Preserve EXACTLY their facial features, skin tone, skin texture, hair, eye color, jawline, body proportions, gender, age and ethnicity. Do not stylize or beautify. Same human, new scene.\",\n  \"product_reference\": \"The product: "+prod+". "+det+" The subject is using/wearing this product as the protagonist of the shot.\",\n  \"scene\": {\n    \"setting\": \""+esc+"\",\n    \"composition\": \"balanced framing, subject in sharp focus, soft background blur, negative space for a title overlay\","+(marca?"\n    \"watermark_text\": \"the words '"+marca+"' appear very softly like a faint translucent watermark, elegant serif, low opacity, barely visible — NOT a bold logo\",":"")+"\n    \"lighting\": \"warm cinematic lighting, soft directional light, gentle shadows, subtle haze\",\n    \"color_grade\": \"warm true-to-life tones, soft film-like contrast\",\n    \"camera\": \"cinema camera, sharp focus on subject with soft depth falloff\"\n  },\n  \"style\": \""+est+"\",\n  \"negative_prompt\": \"cartoon, illustration, stock watermarks, garbled text, lowres, distorted product, deformed hands, oversaturated, plastic look, blown highlights\"\n}";
+  $('i_box').innerText=j;
+}
+
+/* ---------- memoria ---------- */
+const STOP=new Set("de la el los las un una unos unas y o u en que con para por del al es se su sus como mas más lo le a si no me te nos ya hay este esta esto eso ese esa".split(" "));
+function norm(s){return (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9\s]/g," ");}
+function toks(s){return norm(s).split(/\s+/).filter(w=>w.length>2&&!STOP.has(w));}
+function scoreEntry(e,qset){const body=new Set(toks(e.titulo+" "+e.tags+" "+e.contenido));const head=new Set(toks(e.titulo+" "+e.tags));let s=0;qset.forEach(t=>{if(body.has(t))s+=1;if(head.has(t))s+=1.5;});return s;}
+function getUser(){ try{return JSON.parse(localStorage.getItem('forja_kb_user'))||[];}catch(e){return [];} }
+function setUser(a){ localStorage.setItem('forja_kb_user',JSON.stringify(a)); }
+function allEntries(){ return SEED.concat(getUser()); }
+function renderMem(){
+  const all=allEntries(), u=getUser();
+  $('m_count').innerHTML=all.length+" fichas ("+SEED.length+" de tus chats + "+u.length+" tuyas) · <span class='link' onclick=\"document.getElementById('m_addform').classList.toggle('hide')\">+ añadir ficha</span>";
+  let html="";
+  all.forEach(e=>{ html+="<div class='kbitem'><div class='kbtitle'><span>"+esc(e.titulo)+(e.mine?" <span class='badge'>tuya</span>":"")+"</span>"+(e.mine?"<button class='del' onclick=\"delEntry('"+e.id+"')\">borrar</button>":"")+"</div><div class='kbtext'>"+esc(e.contenido)+"</div>"+(e.tags?"<div class='tags'>"+e.tags.split(" ").filter(Boolean).slice(0,6).map(t=>"<span class='chip'>"+esc(t)+"</span>").join("")+"</div>":"")+"</div>"; });
+  $('m_list').innerHTML=html;
+}
+function esc(s){return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function addEntry(){ const t=$('m_nt').value.trim(),c=$('m_nc').value.trim(); if(!t||!c)return; const u=getUser(); u.push({id:"u"+Date.now(),titulo:t,tags:$('m_ntg').value.trim(),contenido:c,mine:true}); setUser(u); $('m_nt').value='';$('m_ntg').value='';$('m_nc').value=''; $('m_addform').classList.add('hide'); renderMem(); }
+function delEntry(id){ setUser(getUser().filter(e=>e.id!==id)); renderMem(); }
+async function askMem(){
+  const q=$('m_q').value.trim(); const out=$('m_out'),src=$('m_src'),err=$('m_err'),btn=$('m_btn');
+  out.classList.add('hide'); src.classList.add('hide'); err.classList.add('hide'); if(!q)return;
+  const qset=new Set(toks(q));
+  const ranked=allEntries().map(e=>({e:e,s:scoreEntry(e,qset)})).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).slice(0,3);
+  if(ranked.length===0){ out.innerHTML="No lo sé, eso no está en mi base de datos todavía."; out.classList.remove('hide'); return; }
+  const notas=ranked.map((x,i)=>"["+(i+1)+"] "+x.e.titulo+": "+x.e.contenido).join("\n\n");
+  const sys="Eres el asistente de la base de datos de FORJA. Responde SOLO usando la información de las NOTAS. Si la respuesta no está claramente en ellas, responde EXACTAMENTE: 'No lo sé, eso no está en mi base de datos todavía.' No inventes nada ni uses conocimiento externo. Español, claro y breve.";
+  btn.disabled=true; btn.innerHTML='<span class="spinner"></span>Buscando…';
+  try{
+    const t=await callAI(sys,"PREGUNTA: "+q+"\n\nNOTAS:\n"+notas,700);
+    out.innerHTML=mdToHtml(t); out.classList.remove('hide');
+    src.innerHTML="Basado en: "+ranked.map(x=>"<b>"+esc(x.e.titulo)+"</b>").join(" · "); src.classList.remove('hide');
+  }catch(e){
+    out.innerHTML=mdToHtml(ranked[0].e.contenido); out.classList.remove('hide');
+    src.innerHTML="Basado en: <b>"+esc(ranked[0].e.titulo)+"</b>"; src.classList.remove('hide');
+    err.textContent=e&&e.nokey?'(Sin API key: te muestro la ficha más relacionada en crudo. Añádela en ⚙ para respuestas redactadas.)':'(Sin conexión con la IA: ficha más relacionada en crudo.)'; err.classList.remove('hide');
+  }finally{ btn.disabled=false; btn.innerHTML='Buscar en mi memoria'; }
+}
+
+/* init */
+renderUgc(); renderImg(); renderMem();
+</script>
+</body>
+</html>
