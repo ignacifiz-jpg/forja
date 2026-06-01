@@ -82,6 +82,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--ember);box-shadow:0 0
     <button class="tab on" data-tab="copy" onclick="showTab('copy')">Copy con IA</button>
     <button class="tab" data-tab="ugc" onclick="showTab('ugc')">Prompt UGC</button>
     <button class="tab" data-tab="img" onclick="showTab('img')">Prompt imagen</button>
+    <button class="tab" data-tab="wf" onclick="showTab('wf')">Workflow vídeo</button>
     <button class="tab" data-tab="mem" onclick="showTab('mem')">Memoria</button>
   </div>
 
@@ -135,6 +136,22 @@ input:focus,textarea:focus,select:focus{border-color:var(--ember);box-shadow:0 0
     </div>
     <div id="i_box" class="codebox"></div>
     <div class="barrow"><button class="btn ghost" onclick="copyText(document.getElementById('i_box').innerText,this)">Copiar prompt de imagen</button></div>
+  </div>
+
+  <!-- WORKFLOW -->
+  <div id="tab-wf" class="card hide">
+    <h2 class="h">Workflow de vídeo</h2>
+    <p class="sub">Describe el vídeo y te monta el flujo completo con todos los prompts (imagen → animación → diálogo → montaje), listo para Magnific. Necesita tu API key.</p>
+    <div class="field"><label>Idea / producto del vídeo</label><textarea id="w_idea" rows="2" placeholder="Ej: anuncio UGC del Vestido Tora, mujer de 60 contando que es fresco y fácil de poner"></textarea></div>
+    <div class="row">
+      <div class="field"><label>Formato</label><select id="w_fmt"><option>UGC (persona hablando a cámara)</option><option>Demostración de producto</option><option>Collage / multiángulo</option><option>Antes / después</option></select></div>
+      <div class="field"><label>Nº de escenas</label><input id="w_esc" value="3"></div>
+    </div>
+    <div class="field"><label>Idioma / voz</label><input id="w_voz" placeholder="Ej: español de España, mujer 60"></div>
+    <button class="btn" id="w_btn" onclick="genWorkflow()">⚒ Crear workflow</button>
+    <div id="w_err" class="err hide"></div>
+    <div id="w_out" class="out hide"></div>
+    <div id="w_bar" class="hide"></div>
   </div>
 
   <!-- MEM -->
@@ -222,7 +239,7 @@ async function callAI(system,user,maxTokens){
 }
 
 /* ---------- tabs ---------- */
-function showTab(t){ ['copy','ugc','img','mem'].forEach(x=>{$('tab-'+x).classList.toggle('hide',x!==t);}); document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b.dataset.tab===t)); }
+function showTab(t){ ['copy','ugc','img','wf','mem'].forEach(x=>{$('tab-'+x).classList.toggle('hide',x!==t);}); document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b.dataset.tab===t)); }
 
 /* ---------- copy gen ---------- */
 async function genCopy(){
@@ -240,6 +257,23 @@ async function genCopy(){
     bar.dataset.t=t; bar.classList.remove('hide');
   }catch(e){ err.textContent=e&&e.nokey?'Añade tu API key en ⚙ (arriba a la derecha) para usar la IA.':'No se pudo generar: '+(e.message||'error'); err.classList.remove('hide'); }
   finally{ btn.disabled=false; btn.innerHTML='⚒ Generar copy'; }
+}
+
+/* ---------- workflow video ---------- */
+async function genWorkflow(){
+  const idea=$('w_idea').value.trim(); const err=$('w_err'),out=$('w_out'),bar=$('w_bar'),btn=$('w_btn');
+  err.classList.add('hide');out.classList.add('hide');bar.classList.add('hide');
+  if(!idea){err.textContent='Describe la idea o el producto del vídeo.';err.classList.remove('hide');return;}
+  const sys="Eres director creativo de anuncios de e-commerce y dropshipping. Diseñas el workflow para crear un vídeo corto vertical 9:16 que convierte. Conoces el flujo 'arregla el still, no el vídeo': primero la imagen perfecta y luego animarla image-to-video. Escribe los prompts de imagen y de animación en INGLÉS; el diálogo en el idioma pedido. Concreto y conciso.";
+  const user="Monta el workflow completo para este vídeo.\n\nIdea/producto: "+idea+"\nFormato: "+$('w_fmt').value+"\nNº de escenas: "+($('w_esc').value||'3')+"\nIdioma/voz: "+($('w_voz').value||'español de España')+"\n\nDevuelve en markdown:\n## Concepto y gancho (primeros 3s)\n## Escenas\nPor cada escena un bloque:\n### Escena N — (título)\n- **Still prompt (imagen, EN):** ...\n- **Animation prompt (image-to-video, EN):** ...\n- **Diálogo/Texto:** ...\n## Montaje\n(orden, subtítulos, música, duración final)\n## En Magnific\n(qué herramienta usar en cada paso: generar imagen → upscale Magnific → animar a vídeo)\nSin notas finales.";
+  btn.disabled=true;btn.innerHTML='<span class="spinner"></span>Montando workflow…';
+  try{
+    const t=await callAI(sys,user,2200);
+    out.innerHTML=mdToHtml(t);out.classList.remove('hide');
+    bar.innerHTML='<div class="barrow"><button class="btn ghost" onclick="copyText(this.closest(\'#w_bar\').dataset.t,this)">Copiar workflow</button></div>';
+    bar.dataset.t=t;bar.classList.remove('hide');
+  }catch(e){ err.textContent=e&&e.nokey?'Añade tu API key en ⚙ (arriba a la derecha) para usar la IA.':'No se pudo: '+(e.message||'error'); err.classList.remove('hide'); }
+  finally{ btn.disabled=false; btn.innerHTML='⚒ Crear workflow'; }
 }
 
 /* ---------- ugc ---------- */
