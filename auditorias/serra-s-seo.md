@@ -199,6 +199,11 @@ Tres pasadas: (1) búsquedas en Google desde el entorno remoto, (2) workflow de 
 - **Fase 1 es ahora más sólida y más barata de ejecutar** que en la primera versión: todo es Yoast + WPML + redirecciones en `.htaccess`. 6-8 h. Margen bueno a 450 €.
 - **Las URLs fantasma de `/es/compra/...`** pueden ser cientos (todo el catálogo anterior). Pide en Search Console el listado de 404 antes de hacer las redirecciones; con una regla genérica `/es/compra/* → serra-s.es/compra` se resuelve en una línea.
 
+## Enviado
+
+- **7 sep 2026, 20:41 (hora servidor)**: auditoría completa enviada por email a info@serra-s.com como respuesta en el hilo "Serra-S Immobiliàries: un detalle de vuestra web" (mensaje `1a07d9c2dc95e253`). Cuerpo HTML con los 9 hallazgos, lo que ya está bien, packs 450 / 890 / 1.190 € y cierre proponiendo llamada de 15 min. Sin adjunto (PDF disponible en local si lo piden).
+- Seguimiento: si no responden en 3 días laborables, WhatsApp corto recordando el correo y ofreciendo la llamada.
+
 ## Mensaje para enviar el informe (WhatsApp o email)
 
 > Hola, buenos días. Os paso la auditoría de serra-s.com como quedamos: [enlace].
