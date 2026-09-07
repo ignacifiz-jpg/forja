@@ -112,8 +112,8 @@ footer b{color:var(--ink);font-weight:600}
   <h2>Resumen en tres líneas</h2>
   <ol>
     <li>La web corporativa está bien montada por dentro (redirecciones, mapa del sitio, caché), pero <strong>Google no sabe qué sois ni dónde estáis</strong>: la portada se titula "Inici", ninguna página tiene descripción y el plugin de SEO está instalado sin configurar.</li>
-    <li><strong>Los inmuebles no están en la web.</strong> Viven en otro dominio, serra-s.es, con direcciones ilegibles y peor SEO. De más de 100 inmuebles, Google tiene uno indexado. Y las fichas antiguas de serra-s.com dan error.</li>
-    <li>Lo primero se arregla en <strong>una semana sin tocar el diseño</strong>. Lo segundo depende de la plataforma de fichas; lo confirmamos dentro de esa misma semana.</li>
+    <li><strong>Los inmuebles no están en la web.</strong> Viven en serra-s.es, vuestra plataforma Inmovilla, donde todas las páginas comparten el mismo título y la misma descripción y las fichas tienen direcciones de código numérico. De más de 100 inmuebles, Google no tiene ninguno indexado que siga a la venta.</li>
+    <li>Lo primero se arregla en <strong>una semana sin tocar el diseño</strong>. Lo segundo tiene solución conocida porque Inmovilla lo permite: plantilla actual o conexión con la web.</li>
   </ol>
 </section>
 
@@ -135,7 +135,7 @@ footer b{color:var(--ink);font-weight:600}
           <tr><td><span class="url">/es/serra-s-inmobiliaries-compraventa-de-inmuebles/</span></td><td class="bad">Inicio</td><td class="bad">Ninguna</td></tr>
           <tr><td><span class="url">/contacte/</span></td><td class="bad">Contacte - SERRA-S inmobiliàries | Compraventa de inmuebles, Alquiler</td><td class="bad">Ninguna</td></tr>
           <tr><td><span class="url">/es/noticias/</span></td><td class="bad">Noticias - SERRA-S inmobiliàries | Compraventa de inmuebles, Alquiler</td><td class="bad">Google lo corta</td></tr>
-          <tr><td><span class="url">www.serra-s.es/</span></td><td class="bad">SERRA-S inmobiliàries | Compraventa de inmuebles, Alquil...</td><td class="bad">Lista de servicios, sin localidad</td></tr>
+          <tr><td><span class="url">www.serra-s.es/</span> (y todas sus páginas)</td><td class="bad">SERRA-S inmobiliàries | Compraventa de inmuebles, Alquil...</td><td class="bad">Lista de servicios, sin localidad</td></tr>
         </tbody>
       </table></div>
       <p>Ni "inmobiliaria" ni "Santa Susanna" aparecen en ningún título. Google intenta arreglarlo por su cuenta: a veces muestra la portada como "SERRA-S inmobiliàries" en vez de "Inici". En serra-s.es el título ya viene cortado con puntos suspensivos desde el propio código.</p>
@@ -152,14 +152,15 @@ footer b{color:var(--ink);font-weight:600}
     <div class="body">
       <h3>Los inmuebles viven fuera de la web y Google no los ve</h3>
       <ul>
-        <li>La web corporativa <span class="url">www.serra-s.com</span> no tiene ninguna ficha de inmueble: su mapa del sitio solo lista páginas, artículos y categorías.</li>
-        <li>Los inmuebles están en <span class="url">www.serra-s.es</span>, la plataforma de fichas (activa, actualizada en julio de 2026). Allí las direcciones son del tipo <span class="url">/ficha/index.php?codigo=12449_23982185</span>: ni el tipo, ni el municipio, ni nada que Google o una persona puedan leer.</li>
-        <li>En esa plataforma la portada le dice a Google que la versión principal es la inglesa, la descripción es una lista de servicios y 7 de las 16 fotos de la portada no tienen texto alternativo.</li>
+        <li>La web corporativa <span class="url">www.serra-s.com</span> tiene 15 páginas y ninguna ficha de inmueble ni página de comprar, vender o alquilar. El menú envía a <span class="url">serra-s.es/venta.php</span>.</li>
+        <li><span class="url">serra-s.es</span> es vuestra web de Inmovilla, con una plantilla antigua: las fichas tienen direcciones del tipo <span class="url">/ficha/index.php?codigo=12449_23982185</span>, y todas las páginas (portada, listado y fichas) comparten el mismo título, la misma descripción y le dicen a Google que la página principal es la portada. Para Google, cada inmueble es una copia de la portada.</li>
+        <li>La única ficha vuestra que Google tenía indexada (una casa en Canet de Mar) ya no está a la venta, y su dirección muestra la portada en vez de avisar de que el inmueble no está disponible.</li>
+        <li>7 de las 16 fotos de la portada de serra-s.es no tienen texto alternativo, y la portada tiene 15 encabezados principales en vez de uno.</li>
       </ul>
-      <p>Resultado: tenéis 85 inmuebles en idealista y 111 en habitaclia, y Google tiene indexada <strong>una</strong> ficha vuestra (una casa en Canet de Mar). Cada búsqueda de "casa en venta en Canet de Mar" o "terreno en Premià de Dalt" se la llevan los portales, donde pagáis por aparecer.</p>
+      <p>Resultado: tenéis 85 inmuebles en idealista y 111 en habitaclia, y ninguno posiciona en Google con vuestra marca. Cada búsqueda de "casa en venta en Canet de Mar" o "terreno en Premià de Dalt" se la llevan los portales, donde pagáis por aparecer.</p>
       <div class="fix">
         <span class="eyebrow">Solución</span>
-        <p>Título, descripción y datos estructurados automáticos en cada ficha (tipo, municipio, metros, precio), direcciones legibles, y las fichas enlazadas desde la web corporativa para que Google llegue a ellas. Se hace sobre vuestra plataforma actual; si su proveedor no permite modificar las plantillas, os lo decimos en la primera semana y os proponemos la alternativa con precio cerrado antes de empezar.</p>
+        <p>Las plantillas actuales de Inmovilla generan título, descripción y dirección legible por inmueble, e Inmovilla tiene conectores para WordPress. Dos vías, y la elegimos con vosotros: actualizar la plantilla de serra-s.es, o traer los inmuebles a www.serra-s.com con su propia página cada uno (comprar, vender, alquilar y fichas bajo vuestro dominio principal). En ambos casos: título automático con tipo, municipio, metros y precio, datos estructurados y página de "inmueble vendido" en lugar de la portada.</p>
       </div>
     </div>
   </article>
@@ -169,43 +170,43 @@ footer b{color:var(--ink);font-weight:600}
     <div class="body">
       <h3>Las fichas antiguas de serra-s.com dan error</h3>
       <p>Google todavía muestra direcciones de vuestro buscador anterior, como <span class="url">/es/compra/terrenos/barcelona/premia-de-dalt/528</span> (un terreno en Premià de Dalt a 660.000 €). Quien hace clic ve "Page not found". Es lo que pasa cuando se cambia de plataforma sin redirigir las direcciones viejas: se pierde el tráfico y la confianza de Google en el dominio.</p>
-      <div class="fix"><span class="eyebrow">Solución</span><p>Redirección permanente de todas las direcciones antiguas del buscador a su ficha equivalente en serra-s.es o, si el inmueble ya no existe, a la página de compra. Enviar a Google la lista para que limpie el índice.</p></div>
+      <div class="fix"><span class="eyebrow">Solución</span><p>Redirección permanente de todas las direcciones antiguas del buscador a su ficha equivalente o a la página de compra. Enviar a Google la lista para que limpie el índice.</p></div>
     </div>
   </article>
 
   <article class="finding">
     <div class="sev"><span class="rank">4</span><span class="pill med">Medio</span></div>
     <div class="body">
-      <h3>Señalización de idiomas incompleta</h3>
-      <p>La web sí le indica a Google qué versión es catalana y cuál castellana (etiquetas hreflang). Pero la portada catalana declara además una versión inglesa en <span class="url">/en/</span> que no aparece en Google, y la portada castellana no la declara. Además, las páginas en catalán llevan la coletilla del título en castellano ("Contacte - ... Compraventa de inmuebles, Alquiler").</p>
-      <div class="fix"><span class="eyebrow">Solución</span><p>Etiquetas de idioma coherentes en todas las páginas, coletilla en el idioma de cada versión, y una versión inglesa real (portada, comprar, contacto) si queréis captar al comprador extranjero, que en Santa Susanna es mucho.</p></div>
+      <h3>Google recibe páginas que no debería ver</h3>
+      <p>El mapa del sitio que la web envía a Google incluye páginas de plantilla que no son para el público: <span class="url">/qality/</span>, <span class="url">/excellence/</span>, <span class="url">/es/footer-esp/</span>, <span class="url">/es/qality-esp/</span> y <span class="url">/es/excellence-2/</span> son bloques de diseño del tema, no páginas. Incluye también los 19 archivos de categoría del blog, y Google tiene indexado el archivo vacío "Sense categoria". Todo eso diluye la calidad del sitio a ojos de Google.</p>
+      <div class="fix"><span class="eyebrow">Solución</span><p>Marcar como no indexables las páginas de plantilla y los archivos de categoría, etiqueta, autor y adjuntos, y sacarlos del mapa del sitio. Diez minutos en Yoast.</p></div>
     </div>
   </article>
 
   <article class="finding">
     <div class="sev"><span class="rank">5</span><span class="pill med">Medio</span></div>
     <div class="body">
-      <h3>La marca está escrita de tres maneras</h3>
-      <p>En los títulos de la web predomina "SERRA-S <strong>inmobiliàries</strong>" (mezcla de castellano y catalán); en idealista y en vuestro logo, "SERRA-S <strong>immobiliàries</strong>"; y en habitaclia y en vuestra firma de correo, "SERRA-S <strong>Gestions Immobiliàries</strong>". Para Google son tres nombres distintos.</p>
-      <div class="fix"><span class="eyebrow">Solución</span><p>Elegir una forma y usarla igual en web, portales, Google Maps y redes.</p></div>
+      <h3>Señalización de idiomas incompleta</h3>
+      <p>La web sí le indica a Google qué versión es catalana y cuál castellana (etiquetas hreflang). Existe además una portada en inglés en <span class="url">/en/</span>, pero no está en el mapa del sitio, la portada castellana no la declara y Google no la tiene indexada. Las páginas en catalán llevan la coletilla del título en castellano ("Contacte - ... Compraventa de inmuebles, Alquiler"), y la portada de noticias en catalán tiene la dirección en castellano (<span class="url">/noticias/</span>).</p>
+      <div class="fix"><span class="eyebrow">Solución</span><p>Etiquetas de idioma coherentes en todas las páginas, coletilla en el idioma de cada versión, y completar la versión inglesa (portada, comprar, contacto) para captar al comprador extranjero, que en Santa Susanna es mucho.</p></div>
     </div>
   </article>
 
   <article class="finding">
     <div class="sev"><span class="rank">6</span><span class="pill med">Medio</span></div>
     <div class="body">
-      <h3>Páginas vacías indexadas</h3>
-      <p>Google indexa <span class="url">/es/category/sense-categoria-es/</span> ("Sense categoria Archives"), el archivo de "Sin categoría" de WordPress. Aporta nada y resta calidad al conjunto. El mapa del sitio, además, se la ofrece a Google expresamente.</p>
-      <div class="fix"><span class="eyebrow">Solución</span><p>Marcar como no indexables los archivos de categorías, etiquetas, autor y adjuntos, y quitarlos del mapa del sitio.</p></div>
+      <h3>La marca está escrita de tres maneras</h3>
+      <p>En los títulos de la web predomina "SERRA-S <strong>inmobiliàries</strong>" (mezcla de castellano y catalán); en idealista y en vuestro logo, "SERRA-S <strong>immobiliàries</strong>"; y en habitaclia y en vuestra firma de correo, "SERRA-S <strong>Gestions Immobiliàries</strong>". Para Google son tres nombres distintos.</p>
+      <div class="fix"><span class="eyebrow">Solución</span><p>Elegir una forma y usarla igual en web, portales, Google Maps, Facebook y firma de correo.</p></div>
     </div>
   </article>
 
   <article class="finding">
     <div class="sev"><span class="rank">7</span><span class="pill med">Medio</span></div>
     <div class="body">
-      <h3>La portada en castellano tiene una dirección larga y dos saltos</h3>
-      <p>Para llegar a la portada en castellano, <span class="url">serra-s.com/es</span> salta a <span class="url">www.serra-s.com/es</span>, luego a <span class="url">/es/inicio/</span>, y esa página remite a <span class="url">/es/serra-s-inmobiliaries-compraventa-de-inmuebles/</span>, que es la que Google indexa. Funciona, pero cada salto resta velocidad y claridad.</p>
-      <div class="fix"><span class="eyebrow">Solución</span><p>Portada castellana directamente en <span class="url">www.serra-s.com/es/</span> y redirección de las otras dos direcciones a ella.</p></div>
+      <h3>La portada en castellano tiene una dirección larga y tres saltos</h3>
+      <p>Para llegar a la portada en castellano, <span class="url">serra-s.com/es</span> salta a <span class="url">www.serra-s.com/es</span>, luego a <span class="url">/es/inicio/</span>, y de ahí a <span class="url">/es/serra-s-inmobiliaries-compraventa-de-inmuebles/</span>, que es la que Google indexa. Funciona, pero cada salto resta velocidad y claridad.</p>
+      <div class="fix"><span class="eyebrow">Solución</span><p>Portada castellana directamente en <span class="url">www.serra-s.com/es/</span> y un solo salto desde las demás direcciones.</p></div>
     </div>
   </article>
 
@@ -215,6 +216,15 @@ footer b{color:var(--ink);font-weight:600}
       <h3>Datos de contacto distintos según dónde se mire</h3>
       <p>En los portales vuestra dirección aparece como "Carretera N-II km 673, Centro Comercial Carrefour" y también como "N-2, 11, 08398 Santa Susanna". Google Maps cruza estos datos: si no coinciden, baja la confianza en vuestra ficha de empresa y salís peor en el mapa.</p>
       <div class="fix"><span class="eyebrow">Solución</span><p>Mismo nombre, dirección, teléfono y horario en web, ficha de Google, idealista, habitaclia y Facebook.</p></div>
+    </div>
+  </article>
+
+  <article class="finding">
+    <div class="sev"><span class="rank">9</span><span class="pill med">Medio</span></div>
+    <div class="body">
+      <h3>Mucho blog, nada local</h3>
+      <p>Tenéis 45 artículos publicados en catalán y castellano, y eso es un activo. Pero todos son noticias generales del sector (euríbor, IBI, decoración, normativa de ascensores) y solo uno habla del Maresme. Ninguno menciona Santa Susanna, Malgrat, Pineda, Calella ni Canet. Google posiciona por lo que se escribe: hoy el blog no os trae ni una búsqueda local.</p>
+      <div class="fix"><span class="eyebrow">Solución</span><p>Cinco páginas de zona (una por municipio donde tenéis cartera) y un artículo local al mes rinden más que cuarenta noticias nacionales.</p></div>
     </div>
   </article>
 </section>
@@ -227,11 +237,12 @@ footer b{color:var(--ink);font-weight:600}
   <ul class="checks">
     <li>Redirecciones de http a https y de serra-s.com a www: correctas</li>
     <li>robots.txt y mapa del sitio generados por Yoast: correctos</li>
-    <li>Etiqueta canonical en cada página</li>
+    <li>Etiqueta canonical en cada página de la web corporativa</li>
     <li>Todas las fotos de la web corporativa tienen texto alternativo</li>
     <li>Un solo encabezado principal por página en la web corporativa</li>
     <li>Idioma declarado en cada página (catalán / castellano)</li>
     <li>Caché de servidor activa (W3 Total Cache con Redis)</li>
+    <li>Blog activo con 45 artículos en dos idiomas</li>
   </ul>
 </section>
 
@@ -262,23 +273,23 @@ footer b{color:var(--ink);font-weight:600}
       <ul>
         <li>Títulos y descripciones de todas las páginas en catalán y castellano</li>
         <li>Redirecciones de las direcciones antiguas del buscador</li>
-        <li>Etiquetas de idioma coherentes</li>
-        <li>Páginas vacías fuera del índice y del mapa del sitio</li>
-        <li>Portada castellana en /es/</li>
+        <li>Páginas de plantilla y archivos fuera del índice y del mapa del sitio</li>
+        <li>Etiquetas de idioma coherentes y portada inglesa visible</li>
+        <li>Portada castellana en /es/ con un solo salto</li>
         <li>Marca unificada, ficha de Google Maps y Search Console</li>
-        <li>Diagnóstico de la plataforma de fichas para la Fase 2</li>
+        <li>Propuesta cerrada para los inmuebles (plantilla Inmovilla o conexión con la web)</li>
       </ul>
       <div class="term">Plazo: 1 semana</div>
     </div>
     <div class="plan">
-      <div class="name"><h3>Fase 2 · Inmuebles y zona</h3><span>Arregla el hallazgo 2 y abre nuevas búsquedas</span></div>
+      <div class="name"><h3>Fase 2 · Inmuebles y zona</h3><span>Arregla los hallazgos 2 y 9 y abre nuevas búsquedas</span></div>
       <div class="price">890 €<small>IVA no incluido</small></div>
       <ul>
         <li>Título, descripción y datos estructurados automáticos en todas las fichas</li>
-        <li>Direcciones legibles en las fichas, si la plataforma lo permite</li>
-        <li>Fichas enlazadas desde la web corporativa</li>
-        <li>Versión inglesa mínima (portada, comprar, contacto)</li>
+        <li>Direcciones legibles y página de "inmueble vendido"</li>
+        <li>Páginas de comprar, vender y alquilar en la web corporativa</li>
         <li>5 páginas de zona: Santa Susanna, Malgrat, Pineda, Calella y Canet</li>
+        <li>Versión inglesa mínima (portada, comprar, contacto)</li>
         <li>Mejora de velocidad</li>
       </ul>
       <div class="term">Plazo: 2 semanas</div>
@@ -294,7 +305,7 @@ footer b{color:var(--ink);font-weight:600}
       <div class="term">Plazo: 3 semanas</div>
     </div>
   </div>
-  <p class="note">La Fase 2 se hace sobre vuestra plataforma de fichas actual (serra-s.es). Si su proveedor no permite modificar las plantillas, os lo decimos al acabar la Fase 1 y os proponemos la alternativa con precio cerrado antes de empezar. Si preferís hacerlo con vuestro proveedor, este documento sirve como lista de tareas. No hay ningún compromiso por haber pedido la auditoría.</p>
+  <p class="note">Si para los inmuebles se opta por conectar Inmovilla con la web corporativa, la licencia del conector se paga aparte al proveedor, a su precio, sin recargo nuestro. Si preferís hacerlo con vuestro proveedor actual, este documento sirve como lista de tareas. No hay ningún compromiso por haber pedido la auditoría.</p>
 </section>
 
 <section>

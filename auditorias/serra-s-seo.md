@@ -9,8 +9,8 @@
 ## Resumen en 3 líneas
 
 1. La web corporativa está bien montada por dentro (WordPress, redirecciones, sitemap, caché), pero **Google no sabe qué es ni dónde está**: la portada se titula "Inici", ninguna página tiene descripción y Yoast SEO está instalado sin configurar.
-2. **Los inmuebles no están en la web.** Viven en otro dominio, serra-s.es, con URLs ilegibles y peor SEO. De más de 100 inmuebles, Google tiene uno indexado. Las fichas antiguas de serra-s.com dan 404.
-3. Lo primero se arregla en **una semana sin tocar el diseño**. Lo segundo depende de la plataforma de fichas; se confirma en esa misma semana.
+2. **Los inmuebles no están en la web.** Viven en serra-s.es, la web de Inmovilla del cliente, donde todas las páginas comparten título, descripción y canonical a la portada, y las fichas tienen URL de código numérico. De más de 100 inmuebles, Google no tiene ninguno indexado que siga a la venta. Las fichas antiguas de serra-s.com dan 404.
+3. Lo primero se arregla en **una semana sin tocar el diseño**. Lo segundo tiene solución conocida: plantilla actual de Inmovilla o conector Inmovilla → WordPress.
 
 ---
 
@@ -24,7 +24,7 @@
 | `/es/serra-s-inmobiliaries-compraventa-de-inmuebles/` | Inicio | Ninguna |
 | `/contacte/` | Contacte - SERRA-S inmobiliàries \| Compraventa de inmuebles, Alquiler | Ninguna |
 | `/es/noticias/` | Noticias - SERRA-S inmobiliàries \| Compraventa de inmuebles, Alquiler | Google lo corta |
-| `www.serra-s.es/` | SERRA-S inmobiliàries \| Compraventa de inmuebles, Alquil... | "servicio de Broker hipotecario, Renta vitalicia, Certificados Energéticos, Cédulas de habitabilidad, seguros de impago y seguros de hogar" |
+| `www.serra-s.es/` (y todas sus páginas) | SERRA-S inmobiliàries \| Compraventa de inmuebles, Alquil... | "servicio de Broker hipotecario, Renta vitalicia, Certificados Energéticos, Cédulas de habitabilidad, seguros de impago y seguros de hogar" |
 
 Ni "inmobiliaria" ni "Santa Susanna" en ningún título. Google reescribe la portada a veces como "SERRA-S inmobiliàries". En serra-s.es el título ya viene cortado con "..." en el propio HTML.
 
@@ -47,39 +47,45 @@ Cada página necesita además una **meta description** de 140 a 155 caracteres c
 
 ### 2. CRÍTICO · Los inmuebles viven fuera de la web y Google no los ve
 
-- `www.serra-s.com` (WordPress, tema Enfold, WPML, Yoast, W3 Total Cache) **no tiene ninguna ficha de inmueble**: el sitemap solo tiene `post-sitemap`, `page-sitemap` y `category-sitemap`.
-- Los inmuebles están en `www.serra-s.es`, la plataforma de fichas (activa: assets con fecha 2026-07-29). URLs tipo `/ficha/index.php?codigo=12449_23982185`. Su portada, servida sin idioma, sale en inglés con `canonical` a `/en`, descripción = lista de servicios, 6 H1 y 7 de 16 imágenes sin alt.
-- Resultado: 85 inmuebles en idealista y 111 en habitaclia; Google tiene **una** ficha indexada (casa en Canet de Mar, `codigo=12449_23982185`).
+- `www.serra-s.com` (WordPress, tema Enfold, WPML, Yoast, W3 Total Cache) tiene **15 páginas** y ninguna ficha de inmueble ni página de comprar/vender/alquilar. El menú enlaza a `serra-s.es/venta.php` y `serra-s.es/alertas.php?idio=1`.
+- `www.serra-s.es` es la **web de Inmovilla** del cliente (`apiweb.inmovilla.com/apiweb/config/12449_...`, código de cliente 12449 = prefijo de las fichas), plantilla antigua. URLs tipo `/ficha/index.php?codigo=12449_23982185`. Portada, listado y fichas comparten el mismo `<title>` (cortado con "..." en el código), la misma description (lista de servicios) y `canonical` a la portada (`/es`, `/ca` o `/en` según idioma). Para Google cada inmueble es una copia de la portada.
+- La única ficha indexada (casa en Canet, `codigo=12449_23982185`) ya no está a la venta: su URL devuelve la portada con código 200 (soft 404) en vez de "inmueble no disponible".
+- Portada de serra-s.es: 15 H1, 7 de 16 imágenes sin alt.
+- Resultado: 85 inmuebles en idealista y 111 en habitaclia; ninguno posiciona con la marca.
 
-**Solución:** título, descripción y datos estructurados (`RealEstateListing` / `Offer`) automáticos por ficha; URLs legibles; enlazar las fichas desde la web corporativa. Se hace sobre la plataforma actual; si su proveedor no permite tocar plantillas, avisar tras la Fase 1 y proponer alternativa con precio cerrado.
+**Solución:** dos vías, a elegir con el cliente. (a) Actualizar la plantilla de Inmovilla (las actuales generan título, description y URL legible por inmueble). (b) Conector Inmovilla → WordPress para que cada inmueble tenga su página en www.serra-s.com, con páginas de comprar/vender/alquilar bajo el dominio principal. En ambos: título automático (tipo, municipio, m², precio), datos estructurados `RealEstateListing`/`Offer`, página de "vendido" en lugar de la portada.
 
 ### 3. ALTO · Las fichas antiguas de serra-s.com dan 404
 
 Google todavía muestra `/es/compra/terrenos/barcelona/premia-de-dalt/528` (terreno en Premià de Dalt, ref. PD270720T, 660.000 €). Hoy responde "Page not found" con `noindex`. También indexa `serra-s.com/es` con título "SERRA-S" y snippet "Tu portal inmobiliario de confianza": es el fantasma del buscador anterior, que vivía en serra-s.com/es y ahora está en serra-s.es. Se cambió de plataforma sin redirigir.
 
-**Solución:** 301 de todas las URLs antiguas del buscador (`/es/compra/...`, `/es/content/...`) a su equivalente en serra-s.es o a la página de compra. Retirada en Search Console.
+**Solución:** 301 de todas las URLs antiguas del buscador (`/es/compra/...`, `/es/content/...`; `serra-s.com/es/content/certif-energetico` también redirige a www y muere) a su equivalente o a la página de compra. Retirada en Search Console.
 
-### 4. MEDIO · Señalización de idiomas incompleta
+### 4. MEDIO · Google recibe páginas que no debería ver
 
-hreflang existe (WPML): la portada CA declara `ca`, `es` y `en` (`/en/`); la portada ES declara solo `ca` y `es`; contacto declara `ca` y `es` (`/es/contacto/`). No hay ninguna URL `/en/` indexada en Google ⚠️ (comprobar si `/en/` existe). Las páginas en catalán llevan la coletilla del título en castellano.
+`page-sitemap.xml` incluye páginas de plantilla del tema Enfold que no son para el público: `/qality/`, `/es/qality-esp/`, `/excellence/`, `/es/excellence-2/`, `/es/footer-esp/`. `category-sitemap.xml` incluye los 19 archivos de categoría (CA + ES). Google además tiene indexado `/es/category/sense-categoria-es/` ("Sense categoria Archives"). Solución: `noindex` en páginas de plantilla y archivos de categoría, etiqueta, autor y adjuntos, y fuera del sitemap (Yoast).
 
-**Solución:** hreflang coherente en todas las páginas, coletilla por idioma, y versión EN real mínima (portada, comprar, contacto) si quieren comprador extranjero.
+### 5. MEDIO · Señalización de idiomas incompleta
 
-### 5. MEDIO · La marca está escrita de tres maneras
+hreflang existe (WPML): la portada CA declara `ca`, `es` y `en`; la portada ES solo `ca` y `es`; contacto `ca` y `es`. **`/en/` existe (200)** pero no está en el sitemap, la portada ES no lo declara y Google no lo indexa. Páginas en catalán con coletilla en castellano; la portada de noticias en catalán tiene slug castellano (`/noticias/`), y hay posts con slug cruzado (`/es/quotes-hipotecaries-...-es-translation/`, `/cuotas-hipotecarias-mas-bajas-que-los-alquileres/` en CA).
 
-"SERRA-S **inmobiliàries**" (títulos de la web y de serra-s.es), "SERRA-S **immobiliàries**" (idealista, logo), "SERRA-S **Gestions Immobiliàries**" (habitaclia, firma de correo). Elegir una y usarla en web, portales, Google Business y redes.
+**Solución:** hreflang coherente en todas las páginas, coletilla por idioma, completar la versión EN (portada, comprar, contacto) y meterla en el sitemap.
 
-### 6. MEDIO · Páginas basura indexadas
+### 6. MEDIO · La marca está escrita de tres maneras
 
-`/es/category/sense-categoria-es/` ("Sense categoria Archives") está indexada y además el `category-sitemap.xml` se la ofrece a Google. Solución: `noindex` en archivos de categoría, etiqueta, autor y adjuntos, y desactivar el sitemap de categorías en Yoast.
+"SERRA-S **inmobiliàries**" (títulos de la web y de serra-s.es), "SERRA-S **immobiliàries**" (idealista, logo), "SERRA-S **Gestions Immobiliàries**" (habitaclia, firma de correo). Elegir una y usarla en web, portales, Google Business, Facebook y firma.
 
-### 7. MEDIO · Portada en castellano con URL larga y dos saltos
+### 7. MEDIO · Portada en castellano con URL larga y tres saltos
 
-`serra-s.com/es` → 301 → `www.serra-s.com/es` → 301 → `/es/inicio/` → canonical a `/es/serra-s-inmobiliaries-compraventa-de-inmuebles/` (la que Google indexa como "Inicio"). Funciona, pero son tres URLs para una página. Solución: portada ES en `/es/` y 301 desde las otras dos.
+`serra-s.com/es` → 301 → `www.serra-s.com/es` → 301 → `/es/inicio/` → 301 → `/es/serra-s-inmobiliaries-compraventa-de-inmuebles/` (la que Google indexa como "Inicio"). Solución: portada ES en `/es/` y un solo salto desde las demás.
 
 ### 8. MEDIO · Datos de contacto inconsistentes fuera de la web
 
 Portales: "Carretera N-II km 673, Centro Comercial Carrefour" y "N-2, 11, 08398 Santa Susanna". Unificar NAP en web, Google Business, idealista, habitaclia y Facebook. Horario: L-S 10:00-13:30 y 17:00-20:30 · domingos y festivos 10:00-13:00. Teléfonos: 93 102 84 44 y 675 142 221. Email: info@serra-s.com.
+
+### 9. MEDIO · Mucho blog, nada local
+
+45 posts en CA y ES (90 URLs), todos noticias genéricas del sector (euríbor, IBI, decoración, ascensores...), probablemente contenido sindicado. Solo uno habla del Maresme; ninguno menciona Santa Susanna, Malgrat, Pineda, Calella ni Canet. Solución: 5 páginas de zona + 1 artículo local al mes.
 
 ---
 
@@ -93,6 +99,8 @@ Portales: "Carretera N-II km 673, Centro Comercial Carrefour" y "N-2, 11, 08398 
 - `lang="ca"` / `lang="es-ES"` declarado.
 - W3 Total Cache con Redis activo.
 - JSON-LD presente (el genérico de Yoast; falta `RealEstateAgent`).
+- Blog activo: 45 artículos en dos idiomas.
+- `/en/` existe y responde 200.
 
 ## Comprobaciones técnicas que entran en la Fase 1
 
@@ -109,11 +117,11 @@ Portales: "Carretera N-II km 673, Centro Comercial Carrefour" y "N-2, 11, 08398 
 
 | Fase | Qué incluye | Plazo | Precio cerrado |
 |---|---|---|---|
-| **Fase 1 · Base** | Títulos y descripciones de todas las páginas en CA/ES (Yoast), 301 de las URLs antiguas del buscador, hreflang coherente, noindex de archivos + sitemap de categorías fuera, portada ES en `/es/`, marca unificada, Google Business Profile, Search Console, `RealEstateAgent`, diagnóstico de la plataforma de fichas | 1 semana | **450 €** |
-| **Fase 2 · Inmuebles y zona** | Título, descripción y datos estructurados automáticos en todas las fichas de serra-s.es, URLs legibles si la plataforma lo permite, fichas enlazadas desde la web corporativa, versión EN mínima, 5 páginas de zona (Santa Susanna, Malgrat, Pineda, Calella, Canet), mejora de velocidad | 2 semanas | **890 €** |
+| **Fase 1 · Base** | Títulos y descripciones de todas las páginas en CA/ES (Yoast), 301 de las URLs antiguas del buscador, noindex de páginas plantilla y archivos + fuera del sitemap, hreflang coherente y `/en/` visible, portada ES en `/es/` con un salto, marca unificada, Google Business Profile, Search Console, `RealEstateAgent`, propuesta cerrada para inmuebles (plantilla Inmovilla vs conector) | 1 semana | **450 €** |
+| **Fase 2 · Inmuebles y zona** | Título, descripción y datos estructurados automáticos en todas las fichas, URLs legibles, página de "vendido", páginas de comprar/vender/alquilar en la web corporativa, 5 páginas de zona (Santa Susanna, Malgrat, Pineda, Calella, Canet), versión EN mínima, mejora de velocidad | 2 semanas | **890 €** |
 | Fase 1 + 2 juntas | Todo lo anterior | 3 semanas | **1.190 €** |
 
-La Fase 2 se hace sobre la plataforma de fichas actual. Si su proveedor no permite modificar plantillas, se avisa al acabar la Fase 1 y se propone alternativa con precio cerrado antes de empezar. Sin cuotas mensuales.
+Si para los inmuebles se opta por el conector Inmovilla → WordPress, la licencia del conector se paga aparte al proveedor, a su precio, sin recargo. Sin cuotas mensuales.
 
 ---
 
@@ -158,7 +166,7 @@ Tres pasadas: (1) búsquedas en Google desde el entorno remoto, (2) workflow de 
 | Dos portadas en español duplicadas | **Refutado** | `/es/` → `/es/inicio/` → canonical al slug largo. Es cadena de redirecciones, no duplicado. Hallazgo 7. |
 | Fichas invisibles (1 indexada) | **Confirmado y agravado** | La web corporativa no tiene fichas; en serra-s.es solo 1 indexada. |
 | hreflang ⚠️ | **Comprobado**: existe pero inconsistente | CA declara `en` → `/en/`; ES no. `/en/` sin indexar ⚠️. |
-| Versión inglesa | Sin páginas indexadas; `/en/` declarado en hreflang | Pendiente: `curl` a `/en/` (ver abajo). |
+| Versión inglesa | `/en/` existe (200) pero fuera del sitemap y sin indexar | Hallazgo 5. |
 | WordPress + WPML + Yoast | **Confirmado** | Tema Enfold, W3 Total Cache + Redis. |
 | Alt en imágenes | **Refutado para WP** (0 sin alt); **confirmado para serra-s.es** (7/16) | Movido a "lo que ya está bien" / comprobaciones. |
 | Marca en tres grafías | Confirmado | |
@@ -167,16 +175,24 @@ Tres pasadas: (1) búsquedas en Google desde el entorno remoto, (2) workflow de 
 | Título VirtuaHome | Corregido: es de `inmuebles.virtuahome.es/venta.php`; portada "INICIO - VIRTUA HOME" | |
 | NAP doble | Visto en snippets; comprobar en Maps ⚠️ | |
 
-## Pendiente (5 minutos desde el Mac)
+## Segunda pasada desde el Mac (hecha, 15:22)
+
+- `/en/` → 200. `/es/inicio/` → 301 al slug largo (tres saltos en total). `/es/compra/.../528` → 404. `serra-s.es/es`, `/ca`, `/en` → 200.
+- `page-sitemap.xml`: 15 URLs (home, qality ×2, excellence ×2, footer-esp, contacte/contacto, empresa ×2, home ES, noticias ×2, serveis/servicios). `post-sitemap.xml`: 90 URLs (45 posts × 2 idiomas). `category-sitemap.xml`: 19 archivos.
+- serra-s.es en castellano: mismo title/description; canonical `/es`. Ficha de Canet: devuelve la portada (soft 404).
+- Enlaces de www.serra-s.com hacia serra-s.es: `venta.php` y `alertas.php?idio=1`.
+- Proveedor: **Inmovilla** (`apiweb.inmovilla.com/apiweb/config/12449_...`, CSS `inmovilla-1.css`, texto "inmovilla diseño web"). Facebook: `facebook.com/.../61570973482792/`.
+
+## Pendiente
 
 1. **PageSpeed** móvil y escritorio de `https://www.serra-s.com/` en pagespeed.web.dev. Enfold + jquery-migrate + html5shiv: espera 40-60 en móvil. Si baja de 50, subir velocidad a hallazgo ALTO.
 2. **Google Maps**: nota, nº de reseñas y dirección de "SERRA-S immobiliàries" y de "Virtua Home Santa Susanna". Añadir al hallazgo 8.
-3. **Segundo script** (bloque `serra-s-check2`): estado de `/en/`, lista completa de páginas y posts del sitemap, serra-s.es en castellano, enlaces de la web corporativa hacia serra-s.es, y pistas del proveedor de la plataforma de fichas.
+3. **Tercer script** (`comprobar-serra-s-3.sh`): title/description/canonical/H1 de una ficha VIVA de Inmovilla (desde `venta.php`) para confirmar que las fichas activas también canonicalizan a la portada, y qué hay en `/en/`. Si una ficha viva tiene su propio title y canonical, suavizar el punto "cada inmueble es una copia de la portada" a "las fichas vendidas muestran la portada".
 
 ## Riesgos y decisiones
 
-- **Plataforma de fichas desconocida.** Scripts de serra-s.es: `buscadorareas/componentes-v3-externo.js`, `js/EnviarPostHog.js`, `js/modulos/...` con cache-busting `?x=20260729111100`. No es Inmovilla ni Witei a simple vista; parece desarrollo a medida de un proveedor local. Pregunta al cliente quién les lleva serra-s.es antes de comprometer la Fase 2. Por eso el informe dice "si su proveedor no permite modificar plantillas, os proponemos alternativa con precio cerrado".
-- **Alternativa si la plataforma es cerrada:** traer las fichas a WordPress con un plugin inmobiliario (conector XML/feed del CRM) y dejar serra-s.es como espejo con canonical a la web. Estimar aparte: 8-12 h extra.
+- **Plataforma = Inmovilla, plantilla antigua.** Dos vías para la Fase 2: (a) el cliente pide a Inmovilla el cambio a plantilla actual (Inmovilla lo hace; el SEO por inmueble y las URLs amigables van en sus plantillas nuevas; tú configuras textos y estructura); (b) conector Inmovilla → WordPress (hay plugins de terceros tipo plugininmovilla.com / propertify.es, con licencia anual). **Antes de cerrar la Fase 2, pide precio de la licencia del conector y confirma con el cliente qué contrato tienen con Inmovilla.** La vía (b) es la buena a largo plazo: todo bajo www.serra-s.com. Estimación extra si (b): 8-12 h de integración y plantillas.
+- **La afirmación "todas las fichas canonicalizan a la portada"** se ha visto en la ficha de Canet, que ya no existe (muestra la portada). Confírmala con el tercer script sobre una ficha viva antes de enviar; si no se cumple, el hallazgo 2 sigue siendo cierto por las URLs numéricas y el title/description compartidos.
 - **Fase 1 es ahora más sólida y más barata de ejecutar** que en la primera versión: todo es Yoast + WPML + redirecciones en `.htaccess`. 6-8 h. Margen bueno a 450 €.
 - **Las URLs fantasma de `/es/compra/...`** pueden ser cientos (todo el catálogo anterior). Pide en Search Console el listado de 404 antes de hacer las redirecciones; con una regla genérica `/es/compra/* → serra-s.es/compra` se resuelve en una línea.
 
@@ -188,4 +204,4 @@ Tres pasadas: (1) búsquedas en Google desde el entorno remoto, (2) workflow de 
 >
 > En el informe tenéis qué arreglar primero y el precio cerrado si queréis que lo hagamos nosotros (Fase 1 en una semana, 450 €). Si lo preferís hacer con vuestro proveedor, el documento sirve como lista de tareas.
 >
-> Una pregunta para afinar la segunda fase: ¿quién os lleva la plataforma de fichas de serra-s.es? Si os cuadra, lo vemos en una llamada de 15 minutos cuando os vaya bien. Un saludo, Nacho · Sultox · 722 83 50 57
+> Para la segunda fase hay dos caminos con vuestra web de Inmovilla (actualizar su plantilla o traer los inmuebles a serra-s.com); os lo explico en una llamada de 15 minutos cuando os vaya bien. Un saludo, Nacho · Sultox · 722 83 50 57
