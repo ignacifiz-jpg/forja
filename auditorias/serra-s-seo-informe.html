@@ -1,0 +1,300 @@
+<title>Auditoría SEO Serra-S</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F3F5F4; --surface:#FFFFFF; --ink:#172029; --muted:#5B6770; --line:#D8DEDC;
+  --accent:#0E5A6B; --accent-ink:#FFFFFF; --accent-soft:#E1EEF0;
+  --crit:#B3382C; --crit-soft:#F7E6E3; --high:#B8741B; --high-soft:#F8EEDC; --med:#4A6FA5; --med-soft:#E4EBF5;
+  --ok:#2F7D4F;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#10171C; --surface:#182129; --ink:#E8ECEA; --muted:#9AA6AD; --line:#2B3740;
+    --accent:#5FB7C8; --accent-ink:#0E1A1E; --accent-soft:#1B3038;
+    --crit:#E4796C; --crit-soft:#3A2220; --high:#DEA25A; --high-soft:#3A2D18; --med:#8AAEE0; --med-soft:#1F2C3E;
+    --ok:#6FC391;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10171C; --surface:#182129; --ink:#E8ECEA; --muted:#9AA6AD; --line:#2B3740;
+  --accent:#5FB7C8; --accent-ink:#0E1A1E; --accent-soft:#1B3038;
+  --crit:#E4796C; --crit-soft:#3A2220; --high:#DEA25A; --high-soft:#3A2D18; --med:#8AAEE0; --med-soft:#1F2C3E;
+  --ok:#6FC391;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:"Source Sans 3",-apple-system,"Segoe UI",Roboto,sans-serif;font-size:17px;line-height:1.55;margin:0}
+h1,h2,h3{font-family:"Bricolage Grotesque","Source Sans 3",sans-serif;text-wrap:balance;line-height:1.12;margin:0}
+h1{font-size:clamp(30px,4.5vw,44px);font-weight:700;letter-spacing:-.01em}
+h2{font-size:26px;font-weight:700;letter-spacing:-.005em}
+h3{font-size:20px;font-weight:700}
+p{margin:0}
+a{color:var(--accent)}
+code,.url{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:.86em}
+.wrap{max-width:820px;margin:0 auto;padding:40px 22px 80px;display:flex;flex-direction:column;gap:56px}
+.eyebrow{font-size:12.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+/* header as a document "ficha" */
+.doc{border-top:4px solid var(--accent);padding-top:22px;display:flex;flex-direction:column;gap:22px}
+.doc-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px 24px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0}
+.doc-meta div{display:flex;flex-direction:column;gap:2px}
+.doc-meta b{font-weight:600}
+.lede{font-size:19px;max-width:62ch;color:var(--ink)}
+.summary{display:flex;flex-direction:column;gap:12px}
+.summary ol{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:8px;max-width:66ch}
+.summary li::marker{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;color:var(--accent)}
+section{display:flex;flex-direction:column;gap:22px}
+.sec-head{display:flex;flex-direction:column;gap:8px}
+.sec-head p{color:var(--muted);max-width:62ch}
+/* findings */
+.finding{display:grid;grid-template-columns:120px 1fr;gap:18px;padding:22px 0;border-top:1px solid var(--line)}
+.finding:last-child{border-bottom:1px solid var(--line)}
+.sev{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.rank{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:34px;line-height:1;color:var(--ink)}
+.pill{font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:4px 9px;border-radius:3px}
+.pill.crit{background:var(--crit-soft);color:var(--crit)}
+.pill.high{background:var(--high-soft);color:var(--high)}
+.pill.med{background:var(--med-soft);color:var(--med)}
+.body{display:flex;flex-direction:column;gap:14px;min-width:0}
+.body p{max-width:64ch}
+.body ul{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px;max-width:64ch}
+.fix{background:var(--accent-soft);border-left:3px solid var(--accent);padding:12px 16px;display:flex;flex-direction:column;gap:4px;max-width:64ch}
+.fix .eyebrow{color:var(--accent)}
+.tscroll{overflow-x:auto;border:1px solid var(--line);background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:15px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
+th{font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600;background:var(--bg)}
+tr:last-child td{border-bottom:0}
+td .url{color:var(--muted);word-break:break-all}
+td.bad{color:var(--crit)}
+/* checks */
+.checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px 24px;margin:0;padding:0;list-style:none}
+.checks li{padding:8px 0 8px 22px;position:relative;border-bottom:1px solid var(--line)}
+.checks li::before{content:"";position:absolute;left:0;top:16px;width:10px;height:10px;border:2px solid var(--accent);border-radius:2px}
+/* pricing */
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.plan{background:var(--surface);border:1px solid var(--line);padding:22px;display:flex;flex-direction:column;gap:14px}
+.plan.lead{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.plan .name{display:flex;flex-direction:column;gap:2px}
+.plan .name span{color:var(--muted);font-size:14px}
+.price{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:38px;line-height:1;letter-spacing:-.01em}
+.price small{font-family:"Source Sans 3",sans-serif;font-weight:400;font-size:14px;color:var(--muted);letter-spacing:0;margin-left:6px}
+.plan ul{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:5px;font-size:15px;flex:1}
+.plan .term{font-size:14px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
+.note{color:var(--muted);font-size:15px;max-width:64ch}
+/* timeline */
+.expect{display:grid;grid-template-columns:130px 1fr;gap:10px 18px;max-width:64ch}
+.expect b{font-weight:600;color:var(--accent)}
+footer{border-top:1px solid var(--line);padding-top:20px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;font-size:15px;color:var(--muted)}
+footer b{color:var(--ink);font-weight:600}
+@media (max-width:600px){
+  .finding{grid-template-columns:1fr;gap:10px}
+  .sev{flex-direction:row;align-items:center;gap:12px}
+  .rank{font-size:26px}
+  .expect{grid-template-columns:1fr;gap:2px 0}
+  .expect b{margin-top:8px}
+}
+</style>
+
+<div class="wrap">
+
+<header class="doc">
+  <p class="eyebrow">Auditoría SEO rápida · sin coste</p>
+  <h1>Qué le falta a serra-s.com para salir cuando alguien busca una inmobiliaria en Santa Susanna</h1>
+  <div class="doc-meta">
+    <div><span class="eyebrow">Para</span><b>SERRA-S Immobiliàries</b></div>
+    <div><span class="eyebrow">Web analizada</span><b class="url">www.serra-s.com</b></div>
+    <div><span class="eyebrow">Fecha</span><b>7 de septiembre de 2026</b></div>
+    <div><span class="eyebrow">Preparado por</span><b>Nacho · Sultox</b></div>
+  </div>
+  <p class="lede">Hemos revisado lo que Google tiene indexado de vuestra web, cómo aparecéis en los portales y cómo salen vuestros competidores directos en Santa Susanna. Este documento recoge lo que falla, en qué orden arreglarlo y cuánto cuesta si queréis que lo hagamos nosotros.</p>
+</header>
+
+<section class="summary">
+  <h2>Resumen en tres líneas</h2>
+  <ol>
+    <li>La web está indexada, pero <strong>Google no sabe qué sois ni dónde estáis</strong>: los títulos no dicen "inmobiliaria" ni "Santa Susanna", y las fichas de inmuebles se titulan solo "SERRA-S".</li>
+    <li>Hay <strong>tres versiones de la web compitiendo entre sí</strong> (www.serra-s.com, serra-s.com sin www y la web antigua serra-s.es), así que la autoridad se reparte en vez de sumarse.</li>
+    <li>Todo se arregla en <strong>una a tres semanas sin rehacer la web</strong>. Es configuración y textos, no diseño.</li>
+  </ol>
+</section>
+
+<section>
+  <div class="sec-head">
+    <h2>Hallazgos, por orden de prioridad</h2>
+    <p>Ordenados por lo que más clientes os está costando hoy. Los dos primeros explican la mayor parte del problema.</p>
+  </div>
+
+  <article class="finding">
+    <div class="sev"><span class="rank">1</span><span class="pill crit">Crítico</span></div>
+    <div class="body">
+      <h3>Los títulos de página no dicen a qué os dedicáis ni dónde</h3>
+      <p>El título es lo primero que Google lee y lo que la gente ve en azul en los resultados. Esto es lo que Google muestra ahora mismo de vuestras páginas:</p>
+      <div class="tscroll"><table>
+        <thead><tr><th>Página indexada</th><th>Título que muestra Google</th><th>Problema</th></tr></thead>
+        <tbody>
+          <tr><td><span class="url">www.serra-s.com/</span></td><td>SERRA-S inmobiliàries</td><td class="bad">Sin servicio ni localidad</td></tr>
+          <tr><td><span class="url">serra-s.com/es</span></td><td>SERRA-S</td><td class="bad">Solo la marca</td></tr>
+          <tr><td><span class="url">/es/serra-s-inmobiliaries-compraventa-de-inmuebles/</span></td><td>Inicio - SERRA-S immobiliàries</td><td class="bad">Segunda portada en español</td></tr>
+          <tr><td><span class="url">/es/compra/terrenos/barcelona/premia-de-dalt/528</span></td><td>SERRA-S</td><td class="bad">Ficha de inmueble sin título</td></tr>
+          <tr><td><span class="url">/es/noticias/</span></td><td>Noticias - SERRA-S inmobiliàries | Compraventa de inmuebles, Alquiler</td><td class="bad">Google lo corta</td></tr>
+        </tbody>
+      </table></div>
+      <p>Para comparar: vuestra competencia directa sale con títulos como <em>"La Mejor Inmobiliaria de Santa Susana | VirtuaHome"</em>. A ellos Google los entiende. En Santa Susanna hay 47 agencias dadas de alta en idealista peleando por las mismas búsquedas.</p>
+      <div class="fix">
+        <span class="eyebrow">Solución</span>
+        <p>Un título y una descripción para buscadores por página, en catalán, castellano e inglés. Ejemplo para la portada: <strong>"Inmobiliaria en Santa Susanna · Compra, venta y alquiler en el Maresme | SERRA-S"</strong>. Para las fichas, título automático con tipo, municipio, metros y precio.</p>
+      </div>
+    </div>
+  </article>
+
+  <article class="finding">
+    <div class="sev"><span class="rank">2</span><span class="pill crit">Crítico</span></div>
+    <div class="body">
+      <h3>Tres webs compitiendo entre sí</h3>
+      <p>Google tiene indexadas tres versiones de vuestra web:</p>
+      <ul>
+        <li><span class="url">www.serra-s.com</span>, la actual.</li>
+        <li><span class="url">serra-s.com</span> sin www, indexada como sitio aparte.</li>
+        <li><span class="url">www.serra-s.es</span>, la web antigua, con fichas de inmuebles todavía indexadas y servicios (broker hipotecario, renta vitalicia, certificados energéticos, cédulas, seguros) que no aparecen en la web actual.</li>
+      </ul>
+      <p>Cada enlace, cada visita y cada señal de confianza se reparte entre tres sitios en vez de sumar en uno. Y quien entra por la web antigua ve información desactualizada.</p>
+      <div class="fix">
+        <span class="eyebrow">Solución</span>
+        <p>Redirección permanente (301) de serra-s.es y de la versión sin www hacia <span class="url">https://www.serra-s.com</span>, página por página. Etiqueta canonical en todo el sitio. Recuperar en la web actual los servicios que solo están en la antigua.</p>
+      </div>
+    </div>
+  </article>
+
+  <article class="finding">
+    <div class="sev"><span class="rank">3</span><span class="pill high">Alto</span></div>
+    <div class="body">
+      <h3>Las fichas de inmuebles son invisibles en Google</h3>
+      <p>Tenéis más de 85 inmuebles publicados en idealista y más de 100 en habitaclia. Cada ficha de vuestra web debería salir por búsquedas como "casa en venta en Canet de Mar" o "terreno en Premià de Dalt". Hoy se titulan solo "SERRA-S", así que esa demanda se la quedan los portales, donde pagáis por aparecer.</p>
+      <div class="fix">
+        <span class="eyebrow">Solución</span>
+        <p>Plantilla automática de título y descripción por ficha (tipo, municipio, metros, precio, referencia) y datos estructurados para que Google entienda precio y ubicación de cada inmueble.</p>
+      </div>
+    </div>
+  </article>
+
+  <article class="finding">
+    <div class="sev"><span class="rank">4</span><span class="pill high">Alto</span></div>
+    <div class="body">
+      <h3>Dos portadas en español</h3>
+      <p><span class="url">serra-s.com/es</span> y <span class="url">/es/serra-s-inmobiliaries-compraventa-de-inmuebles/</span> son la misma página con dos direcciones. Google elige una y trata la otra como contenido duplicado.</p>
+      <div class="fix"><span class="eyebrow">Solución</span><p>Una redirige a la otra. Diez minutos de trabajo, y evita que Google reparta la fuerza de la portada.</p></div>
+    </div>
+  </article>
+
+  <article class="finding">
+    <div class="sev"><span class="rank">5</span><span class="pill med">Medio</span></div>
+    <div class="body">
+      <h3>Páginas vacías indexadas</h3>
+      <p>Google indexa <span class="url">/es/category/sense-categoria-es/</span> ("Sense categoria Archives"), el archivo de "Sin categoría" del gestor de contenidos. No aporta nada y resta calidad al conjunto del sitio.</p>
+      <div class="fix"><span class="eyebrow">Solución</span><p>Marcar como no indexables los archivos de categorías, etiquetas, autor y adjuntos.</p></div>
+    </div>
+  </article>
+
+  <article class="finding">
+    <div class="sev"><span class="rank">6</span><span class="pill med">Medio</span></div>
+    <div class="body">
+      <h3>La marca está escrita de dos maneras</h3>
+      <p>En los títulos aparece "SERRA-S <strong>inmobiliàries</strong>" (mezcla de castellano y catalán) y "SERRA-S <strong>immobiliàries</strong>" (catalán correcto, como estáis en idealista y habitaclia). Para Google son dos nombres distintos.</p>
+      <div class="fix"><span class="eyebrow">Solución</span><p>Elegir una forma y usarla igual en web, portales, Google Maps y redes.</p></div>
+    </div>
+  </article>
+
+  <article class="finding">
+    <div class="sev"><span class="rank">7</span><span class="pill med">Medio</span></div>
+    <div class="body">
+      <h3>Idiomas mezclados y sin señalizar</h3>
+      <p>Los artículos del blog están en catalán pero llevan la coletilla en castellano. La web tiene versión catalana, castellana e inglesa, pero hay que indicarle a Google cuál enseñar a cada usuario. En Santa Susanna hay mucho comprador francés, alemán y ruso: que la versión inglesa salga bien es negocio directo.</p>
+      <div class="fix"><span class="eyebrow">Solución</span><p>Etiquetas de idioma (hreflang) entre las tres versiones y coletilla de título en el idioma de cada página.</p></div>
+    </div>
+  </article>
+
+  <article class="finding">
+    <div class="sev"><span class="rank">8</span><span class="pill med">Medio</span></div>
+    <div class="body">
+      <h3>Datos de contacto distintos según dónde se mire</h3>
+      <p>En los portales vuestra dirección aparece como "Carretera N-II km 673, Centro Comercial Carrefour" y también como "N-2, 11, 08398 Santa Susanna". Google Maps cruza estos datos: si no coinciden, baja la confianza en vuestra ficha de empresa y salís peor en el mapa.</p>
+      <div class="fix"><span class="eyebrow">Solución</span><p>Mismo nombre, dirección, teléfono y horario en web, ficha de Google, idealista, habitaclia y Facebook.</p></div>
+    </div>
+  </article>
+</section>
+
+<section>
+  <div class="sec-head">
+    <h2>Comprobaciones técnicas incluidas</h2>
+    <p>Se revisan y corrigen dentro de la Fase 1. No se cobran aparte.</p>
+  </div>
+  <ul class="checks">
+    <li>Velocidad de carga en móvil y escritorio</li>
+    <li>Un solo encabezado principal por página</li>
+    <li>Textos alternativos en las fotos de inmuebles</li>
+    <li>Mapa del sitio enviado a Google Search Console</li>
+    <li>Datos de empresa estructurados (nombre, dirección, horario, zona)</li>
+    <li>Certificado de seguridad y redirección a https</li>
+    <li>Versión móvil y botones de llamada y WhatsApp</li>
+    <li>Ficha de Google Maps revisada</li>
+  </ul>
+</section>
+
+<section>
+  <div class="sec-head">
+    <h2>Plan de acción y precios cerrados</h2>
+    <p>Sin cuotas mensuales. Precio fijo por fase, con informe de antes y después en Google Search Console.</p>
+  </div>
+  <div class="plans">
+    <div class="plan lead">
+      <div class="name"><h3>Fase 1 · Base</h3><span>Arregla los hallazgos 1, 2, 4, 5, 6 y 8</span></div>
+      <div class="price">450 €<small>IVA no incluido</small></div>
+      <ul>
+        <li>Redirecciones de serra-s.es y sin www</li>
+        <li>Títulos y descripciones de las páginas principales en CA / ES / EN</li>
+        <li>Páginas vacías fuera del índice</li>
+        <li>Marca unificada</li>
+        <li>Ficha de Google Maps y Search Console configuradas</li>
+      </ul>
+      <div class="term">Plazo: 1 semana</div>
+    </div>
+    <div class="plan">
+      <div class="name"><h3>Fase 2 · Inmuebles y zona</h3><span>Arregla los hallazgos 3 y 7 y abre nuevas búsquedas</span></div>
+      <div class="price">890 €<small>IVA no incluido</small></div>
+      <ul>
+        <li>Título y descripción automáticos en todas las fichas</li>
+        <li>Datos estructurados de inmuebles y agencia</li>
+        <li>Etiquetas de idioma CA / ES / EN</li>
+        <li>5 páginas de zona: Santa Susanna, Malgrat, Pineda, Calella y Canet</li>
+        <li>Mejora de velocidad y recuperación de los servicios de la web antigua</li>
+      </ul>
+      <div class="term">Plazo: 2 semanas</div>
+    </div>
+    <div class="plan">
+      <div class="name"><h3>Fase 1 + 2</h3><span>Todo lo anterior, en un solo encargo</span></div>
+      <div class="price">1.190 €<small>IVA no incluido</small></div>
+      <ul>
+        <li>Ahorro de 150 € frente a contratar por separado</li>
+        <li>Un único interlocutor y una única entrega</li>
+        <li>Informe de resultados a los 30 días</li>
+      </ul>
+      <div class="term">Plazo: 3 semanas</div>
+    </div>
+  </div>
+  <p class="note">Si preferís hacerlo con vuestro proveedor actual, este documento sirve como lista de tareas. No hay ningún compromiso por haber pedido la auditoría.</p>
+</section>
+
+<section>
+  <div class="sec-head"><h2>Qué esperar</h2></div>
+  <div class="expect">
+    <b>Semanas 1 a 2</b><p>Google reindexa los títulos nuevos. Empezáis a aparecer por "inmobiliaria Santa Susanna" y variantes en catalán y castellano.</p>
+    <b>Meses 1 a 2</b><p>Las fichas de inmuebles reciben visitas directas desde Google, sin pasar por idealista ni habitaclia.</p>
+    <b>Mes 3</b><p>Con las páginas de zona, presencia en los cinco municipios del Alt Maresme donde tenéis cartera.</p>
+  </div>
+</section>
+
+<footer>
+  <div><b>Nacho · Sultox</b> · Agencia digital · Maresme y Barcelona</div>
+  <div>WhatsApp <b>+34 722 83 50 57</b> · sultox.com</div>
+</footer>
+
+</div>
