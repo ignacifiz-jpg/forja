@@ -203,6 +203,7 @@ Tres pasadas: (1) búsquedas en Google desde el entorno remoto, (2) workflow de 
 
 - **7 sep 2026, 20:41 (hora servidor)**: auditoría completa enviada por email a info@serra-s.com como respuesta en el hilo "Serra-S Immobiliàries: un detalle de vuestra web" (mensaje `1a07d9c2dc95e253`). Cuerpo HTML con los 9 hallazgos, lo que ya está bien, packs 450 / 890 / 1.190 € y cierre proponiendo llamada de 15 min. Sin adjunto (PDF disponible en local si lo piden).
 - **7 sep 2026, 20:47**: segundo correo en el mismo hilo con el informe en PDF adjunto (`Auditoria-SEO-Serra-S-Sultox.pdf`, 6 páginas, 18 KB; generado con `serra-s-seo-informe-pdf.py`).
+- **Rastreador automático** (rutina `trig_01RLCUHoyo91LGdB5BE52Scv`, "Rastreador hilo Serra-S (Gmail)"): revisa el hilo lunes a sábado a las 09:00, 14:00 y 19:00 (hora España). Si el cliente contesta, manda a ignacifiz@gmail.com un correo "Serra-S ha contestado: <clasificación>" con resumen y respuesta propuesta (nunca escribe al cliente). Si a los 3 días laborables no hay respuesta, recuerda el WhatsApp una vez al día por la mañana; a los 15 días propone cerrar. Se desactiva desde claude.ai (Rutinas).
 - Seguimiento: si no responden en 3 días laborables, WhatsApp corto recordando el correo y ofreciendo la llamada.
 
 ## Mensaje para enviar el informe (WhatsApp o email)
