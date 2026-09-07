@@ -30,7 +30,7 @@ El título es lo primero que Google lee y lo que la gente ve en azul en los resu
 | `/es/noticias/` | Noticias - SERRA-S inmobiliàries \| Compraventa de inmuebles, Alquiler | Demasiado largo, Google lo corta |
 | `/tipus-denergies-renovables-.../` | TIPUS D'ENERGIES RENOVABLES: ... - SERRA-S inmobiliàries \| Compraventa de inmuebles, Alquiler | Artículo en catalán con coletilla en castellano, cortado |
 
-Para comparar: la competencia directa en Santa Susanna sale con títulos como "La Mejor Inmobiliaria de Santa Susana | VirtuaHome.es". Google los entiende; a vosotros no.
+Para comparar: la página de inmuebles en venta de VirtuaHome (`inmuebles.virtuahome.es/venta.php`) sale con el título "La Mejor Inmobiliaria de Santa Susana | VirtuaHome.es". Google los entiende. Su portada, en cambio, se titula "INICIO - VIRTUA HOME": la mayoría de agencias de la zona tienen el mismo problema, y quien lo arregle primero se lleva las búsquedas.
 
 **Títulos propuestos**
 
@@ -151,15 +151,15 @@ Se lanzaron 12 verificadores independientes (uno por afirmación) + escépticos 
 | Portada indexada como "SERRA-S inmobiliàries" / `<title>` "Inici" | Parcial (0,85) | Google muestra "Inici" en búsquedas con esa palabra y "SERRA-S inmobiliàries" en el resto: encaja con tu observación. Redactado así. |
 | Sin www indexado aparte | Parcial (0,75) | Solo `serra-s.com/es` y `/es/content/certif-energetico` sin www. Es el buscador de inmuebles (app distinta), misma IP. Hallazgo 2 reescrito. |
 | "Inicio" = segunda portada duplicada | Parcial (0,75) | No es duplicado: "Inicio" es la portada WP en castellano; `/es` es el buscador. Hallazgo 4 reescrito. |
-| Fichas tituladas "SERRA-S" | Parcial (0,80) | Cierto en búsquedas `site:`; con coincidencia de texto Google reescribe el título desde el H1. Y **solo hay 1 ficha indexada**. Hallazgo 3 reforzado. |
+| Fichas tituladas "SERRA-S" | Parcial (0,80) + confirmado a mano | Cierto en búsquedas `site:`; con coincidencia de texto Google reescribe el título desde el H1. `site:serra-s.com/es/compra` devuelve **1 sola ficha** (2ª pasada). Ninguna URL de alquiler. Hallazgo 3 reforzado. |
 | Noticias / blog con coletilla en castellano | Confirmado (0,85) | Añadido `/contacte/` con el mismo patrón. |
 | serra-s.es viva e indexada con servicios | Confirmado (0,85) | 4 URLs indexadas, incluida una "Company" en inglés. No se pudo comprobar si redirige (deducido de la indexación). Certificado energético sí existe en la nueva. |
 | "Sense categoria" indexado / WordPress | Confirmado (0,90) | WordPress + WPML (slug `-es`) + Yoast (plantilla "Archives"). |
 | Marca con dos grafías | Confirmado (0,90) | Son tres: añadida "Gestions Immobiliàries" (habitaclia y firma de correo). |
-| 85 idealista / 111 habitaclia / 47 agencias | No verificable por agentes (cupo agotado) | Cifras vistas por mí en títulos de Google el 7 sep. Marcadas con fecha. Comprobar antes de enviar. |
-| Título de VirtuaHome | No verificable por agentes (cupo agotado) | Visto por mí en Google el 7 sep como "La Mejor Inmobiliaria de Santa Susana \| VirtuaHome.es". Unificado en ambos documentos. Comprobar. |
+| 85 idealista / 111 habitaclia / 47 agencias | Confirmado después a mano (7 sep, 2ª pasada) | Título de idealista "85 casas y pisos en venta"; buscainmobiliarias suma 111-112 inmuebles por tipología; 47 agencias en el listado de idealista. |
+| Título de VirtuaHome | **Corregido** (7 sep, 2ª pasada) | Ese título es de `inmuebles.virtuahome.es/venta.php`, no de su portada, que sale como "INICIO - VIRTUA HOME" (`virtuahome.es/?idio=8`). Reescrito en ambos documentos como ventaja: la competencia también lo tiene mal. |
 | Dirección doble, teléfonos, horario | Parcial (0,45) | Snippets de Google confirman N-II km 673 Carrefour, teléfonos y horario. La forma "N-2, 11" salió en un snippet de habitaclia. Comprobar en la ficha. |
-| Versión inglesa de la web | **Refutado en la práctica** (0,40) | Ninguna URL `/en/` ni título en inglés indexado. Lo de "habla inglés" es el personal (idealista), no la web. Corregido en hallazgo 7 y en los packs. |
+| Versión inglesa de la web | **Refutado** (0,40 + 2ª pasada) | `site:serra-s.com/en` y `inurl:/en/`: cero resultados. Lo de "habla inglés" es el personal (idealista), no la web. Corregido en hallazgo 7 y en los packs. |
 
 ## Qué no he podido verificar y por qué
 
@@ -174,8 +174,9 @@ El entorno donde se ha hecho el análisis bloquea el acceso directo a serra-s.co
 7. **Google Business Profile**: busca "SERRA-S immobiliàries" en Google Maps y anota número de reseñas, nota media y dirección exacta. Añade una frase al punto 8 con el dato real ("tenéis X reseñas con nota Y; VirtuaHome tiene Z").
 8. **PageSpeed**: pasa `https://pagespeed.web.dev/` sobre la portada móvil y añade la nota (si sale por debajo de 50 en móvil, súbelo a hallazgo ALTO).
 9. **Plataforma**: la parte corporativa es WordPress seguro (WPML + Yoast). El buscador de inmuebles (`serra-s.com/es/compra/...`, ids numéricos) es otra aplicación, probablemente un CRM inmobiliario. Abre `view-source:https://serra-s.com/es` y busca el nombre del proveedor (Inmovilla, Witei, Mobilia, Inmoweb...). Las plantillas de fichas y que Google las indexe dependen de lo que permita ese CRM: si es cerrado, sube la Fase 2 a 990.
-10. **Título de VirtuaHome y cifras de portales**: busca "inmobiliaria santa susanna" desde tu PC y copia el título azul exacto de virtuahome.es; abre la ficha de Serra-S en idealista y habitaclia y actualiza 85 / 111 / 47 si han cambiado.
-11. **Fichas indexadas**: busca en Google `site:serra-s.com/es/compra` y cuenta resultados. Si salen más de 1, cambia la frase "solo una ficha indexada" por el número real (el argumento se mantiene igual mientras sean pocas).
+10. ~~Título de VirtuaHome y cifras de portales~~: hecho en la 2ª pasada (ver tabla).
+11. ~~Fichas indexadas~~: hecho, 1 sola ficha.
+12. **Google Maps**: los buscadores no devuelven la ficha de Google Business de Serra-S. Búscala en Maps y anota nota, nº de reseñas y dirección exacta; haz lo mismo con Virtua Home. Añade la frase al hallazgo 8.
 
 ## Precios
 
