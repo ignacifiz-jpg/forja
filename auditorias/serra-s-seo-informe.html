@@ -112,7 +112,7 @@ footer b{color:var(--ink);font-weight:600}
   <h2>Resumen en tres líneas</h2>
   <ol>
     <li>La web corporativa está bien montada por dentro (redirecciones, mapa del sitio, caché), pero <strong>Google no sabe qué sois ni dónde estáis</strong>: la portada se titula "Inici", ninguna página tiene descripción y el plugin de SEO está instalado sin configurar.</li>
-    <li><strong>Los inmuebles no están en la web.</strong> Viven en serra-s.es, vuestra plataforma Inmovilla, donde todas las páginas comparten el mismo título y la misma descripción y las fichas tienen direcciones de código numérico. De más de 100 inmuebles, Google no tiene ninguno indexado que siga a la venta.</li>
+    <li><strong>Los inmuebles no están en la web.</strong> Viven en serra-s.es, vuestra web de Inmovilla, donde el listado tiene el mismo título que la portada y cada ficha se titula con el titular comercial del agente, sin marca ni "en venta". De más de 100 inmuebles, en nuestras búsquedas Google solo muestra uno, y ya retirado.</li>
     <li>Lo primero se arregla en <strong>una semana sin tocar el diseño</strong>. Lo segundo tiene solución conocida porque Inmovilla lo permite: plantilla actual o conexión con la web.</li>
   </ol>
 </section>
@@ -153,14 +153,15 @@ footer b{color:var(--ink);font-weight:600}
       <h3>Los inmuebles viven fuera de la web y Google no los ve</h3>
       <ul>
         <li>La web corporativa <span class="url">www.serra-s.com</span> tiene 15 páginas y ninguna ficha de inmueble ni página de comprar, vender o alquilar. El menú envía a <span class="url">serra-s.es/venta.php</span>.</li>
-        <li><span class="url">serra-s.es</span> es vuestra web de Inmovilla, con una plantilla antigua: las fichas tienen direcciones del tipo <span class="url">/ficha/index.php?codigo=12449_23982185</span>, y todas las páginas (portada, listado y fichas) comparten el mismo título, la misma descripción y le dicen a Google que la página principal es la portada. Para Google, cada inmueble es una copia de la portada.</li>
-        <li>La única ficha vuestra que Google tenía indexada (una casa en Canet de Mar) ya no está a la venta, y su dirección muestra la portada en vez de avisar de que el inmueble no está disponible.</li>
+        <li><span class="url">serra-s.es</span> es vuestra web de Inmovilla. La página de listado tiene el mismo título y la misma descripción que la portada: la página que debería salir por "pisos en venta en Santa Susanna" no dice ni "venta" ni "Santa Susanna".</li>
+        <li>Cada ficha se titula con el titular comercial que escribe el agente, por ejemplo <em>"VIVE DE VACACIONES TODO EL AÑO: PARCELA con DOS módulos..."</em>: en mayúsculas, cortado a 60 caracteres, sin "en venta", sin precio y sin la marca. Y el encabezado principal de la ficha no es el inmueble, es "Encuentra la casa de tus sueños".</li>
+        <li>Las direcciones antiguas de las fichas (formato <span class="url">ficha/index.php?codigo=...</span>), que son las que Google conoce, muestran la portada en vez de llevar a la ficha nueva o avisar de que el inmueble ya no está.</li>
         <li>7 de las 16 fotos de la portada de serra-s.es no tienen texto alternativo, y la portada tiene 15 encabezados principales en vez de uno.</li>
       </ul>
-      <p>Resultado: tenéis 85 inmuebles en idealista y 111 en habitaclia, y ninguno posiciona en Google con vuestra marca. Cada búsqueda de "casa en venta en Canet de Mar" o "terreno en Premià de Dalt" se la llevan los portales, donde pagáis por aparecer.</p>
+      <p>Resultado: tenéis 85 inmuebles en idealista y 111 en habitaclia, y en nuestras búsquedas Google solo muestra una ficha vuestra, y ya retirada. Cada búsqueda de "casa en venta en Canet de Mar" o "terreno en Premià de Dalt" se la llevan los portales, donde pagáis por aparecer.</p>
       <div class="fix">
         <span class="eyebrow">Solución</span>
-        <p>Las plantillas actuales de Inmovilla generan título, descripción y dirección legible por inmueble, e Inmovilla tiene conectores para WordPress. Dos vías, y la elegimos con vosotros: actualizar la plantilla de serra-s.es, o traer los inmuebles a www.serra-s.com con su propia página cada uno (comprar, vender, alquilar y fichas bajo vuestro dominio principal). En ambos casos: título automático con tipo, municipio, metros y precio, datos estructurados y página de "inmueble vendido" en lugar de la portada.</p>
+        <p>Título automático estructurado en cada ficha (tipo, "en venta", municipio, zona, metros, precio y marca) delante del titular comercial; el inmueble como encabezado principal; listado con título y descripción propios; redirección de las direcciones antiguas; datos estructurados; y páginas de comprar, vender y alquilar en la web corporativa que enlacen a las fichas. Estas plantillas las gestiona Inmovilla y se ajustan a través de ellos; la alternativa es el conector Inmovilla → WordPress para tener todo bajo www.serra-s.com.</p>
       </div>
     </div>
   </article>
@@ -187,8 +188,8 @@ footer b{color:var(--ink);font-weight:600}
     <div class="sev"><span class="rank">5</span><span class="pill med">Medio</span></div>
     <div class="body">
       <h3>Señalización de idiomas incompleta</h3>
-      <p>La web sí le indica a Google qué versión es catalana y cuál castellana (etiquetas hreflang). Existe además una portada en inglés en <span class="url">/en/</span>, pero no está en el mapa del sitio, la portada castellana no la declara y Google no la tiene indexada. Las páginas en catalán llevan la coletilla del título en castellano ("Contacte - ... Compraventa de inmuebles, Alquiler"), y la portada de noticias en catalán tiene la dirección en castellano (<span class="url">/noticias/</span>).</p>
-      <div class="fix"><span class="eyebrow">Solución</span><p>Etiquetas de idioma coherentes en todas las páginas, coletilla en el idioma de cada versión, y completar la versión inglesa (portada, comprar, contacto) para captar al comprador extranjero, que en Santa Susanna es mucho.</p></div>
+      <p>La web sí le indica a Google qué versión es catalana y cuál castellana (etiquetas hreflang). Pero la portada catalana declara además una versión inglesa en <span class="url">/en/</span> que está vacía: muestra "Nothing Found" y aun así es indexable. Las páginas en catalán llevan la coletilla del título en castellano ("Contacte - ... Compraventa de inmuebles, Alquiler"), y la portada de noticias en catalán tiene la dirección en castellano (<span class="url">/noticias/</span>).</p>
+      <div class="fix"><span class="eyebrow">Solución</span><p>Etiquetas de idioma coherentes, coletilla en el idioma de cada versión, y una de dos con el inglés: versión real (portada, comprar, contacto) para captar al comprador extranjero, que en Santa Susanna es mucho, o retirar la página vacía del índice.</p></div>
     </div>
   </article>
 
@@ -274,7 +275,7 @@ footer b{color:var(--ink);font-weight:600}
         <li>Títulos y descripciones de todas las páginas en catalán y castellano</li>
         <li>Redirecciones de las direcciones antiguas del buscador</li>
         <li>Páginas de plantilla y archivos fuera del índice y del mapa del sitio</li>
-        <li>Etiquetas de idioma coherentes y portada inglesa visible</li>
+        <li>Etiquetas de idioma coherentes y página inglesa vacía resuelta</li>
         <li>Portada castellana en /es/ con un solo salto</li>
         <li>Marca unificada, ficha de Google Maps y Search Console</li>
         <li>Propuesta cerrada para los inmuebles (plantilla Inmovilla o conexión con la web)</li>
@@ -286,7 +287,7 @@ footer b{color:var(--ink);font-weight:600}
       <div class="price">890 €<small>IVA no incluido</small></div>
       <ul>
         <li>Título, descripción y datos estructurados automáticos en todas las fichas</li>
-        <li>Direcciones legibles y página de "inmueble vendido"</li>
+        <li>Listado con título propio y redirección de las fichas antiguas</li>
         <li>Páginas de comprar, vender y alquilar en la web corporativa</li>
         <li>5 páginas de zona: Santa Susanna, Malgrat, Pineda, Calella y Canet</li>
         <li>Versión inglesa mínima (portada, comprar, contacto)</li>

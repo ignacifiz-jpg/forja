@@ -9,7 +9,7 @@
 ## Resumen en 3 líneas
 
 1. La web corporativa está bien montada por dentro (WordPress, redirecciones, sitemap, caché), pero **Google no sabe qué es ni dónde está**: la portada se titula "Inici", ninguna página tiene descripción y Yoast SEO está instalado sin configurar.
-2. **Los inmuebles no están en la web.** Viven en serra-s.es, la web de Inmovilla del cliente, donde todas las páginas comparten título, descripción y canonical a la portada, y las fichas tienen URL de código numérico. De más de 100 inmuebles, Google no tiene ninguno indexado que siga a la venta. Las fichas antiguas de serra-s.com dan 404.
+2. **Los inmuebles no están en la web.** Viven en serra-s.es, la web de Inmovilla del cliente, donde el listado tiene el mismo título que la portada y cada ficha se titula con el titular comercial del agente, sin marca ni "en venta". De más de 100 inmuebles, en nuestras búsquedas Google solo muestra uno, y ya retirado. Las fichas antiguas de serra-s.com dan 404.
 3. Lo primero se arregla en **una semana sin tocar el diseño**. Lo segundo tiene solución conocida: plantilla actual de Inmovilla o conector Inmovilla → WordPress.
 
 ---
@@ -48,12 +48,13 @@ Cada página necesita además una **meta description** de 140 a 155 caracteres c
 ### 2. CRÍTICO · Los inmuebles viven fuera de la web y Google no los ve
 
 - `www.serra-s.com` (WordPress, tema Enfold, WPML, Yoast, W3 Total Cache) tiene **15 páginas** y ninguna ficha de inmueble ni página de comprar/vender/alquilar. El menú enlaza a `serra-s.es/venta.php` y `serra-s.es/alertas.php?idio=1`.
-- `www.serra-s.es` es la **web de Inmovilla** del cliente (`apiweb.inmovilla.com/apiweb/config/12449_...`, código de cliente 12449 = prefijo de las fichas), plantilla antigua. URLs tipo `/ficha/index.php?codigo=12449_23982185`. Portada, listado y fichas comparten el mismo `<title>` (cortado con "..." en el código), la misma description (lista de servicios) y `canonical` a la portada (`/es`, `/ca` o `/en` según idioma). Para Google cada inmueble es una copia de la portada.
-- La única ficha indexada (casa en Canet, `codigo=12449_23982185`) ya no está a la venta: su URL devuelve la portada con código 200 (soft 404) en vez de "inmueble no disponible".
+- `www.serra-s.es` es la **web de Inmovilla** del cliente (`apiweb.inmovilla.com/apiweb/config/12449_...`, código de cliente 12449). Portada y listado (`venta.php`, canonical `/venta/es`) comparten `<title>` (cortado con "..." en el código) y description (lista de servicios).
+- Las fichas vivas tienen URL legible (`/ficha/bungalow/palafolls/sant-genis-de-palafolls/12449/30025147/es/`), canonical propio y title propio, **pero el title es el titular comercial del agente** ("VIVE DE VACACIONES TODO EL AÑO: PARCELA con DOS módulos..."), en mayúsculas, cortado a ~60 caracteres, sin "en venta", precio ni marca. Description = primeras líneas del texto del anuncio. H1 de la ficha: "Encuentra la casa de tus sueños" y "Suscríbete", no el inmueble.
+- Las URLs antiguas de ficha (`/ficha/index.php?codigo=12449_23982185`, las que Google conoce) devuelven la portada con 200 (soft 404) en vez de redirigir a la URL nueva o dar "no disponible".
 - Portada de serra-s.es: 15 H1, 7 de 16 imágenes sin alt.
-- Resultado: 85 inmuebles en idealista y 111 en habitaclia; ninguno posiciona con la marca.
+- Resultado: 85 inmuebles en idealista y 111 en habitaclia; en nuestras búsquedas Google solo muestra una ficha, y retirada.
 
-**Solución:** dos vías, a elegir con el cliente. (a) Actualizar la plantilla de Inmovilla (las actuales generan título, description y URL legible por inmueble). (b) Conector Inmovilla → WordPress para que cada inmueble tenga su página en www.serra-s.com, con páginas de comprar/vender/alquilar bajo el dominio principal. En ambos: título automático (tipo, municipio, m², precio), datos estructurados `RealEstateListing`/`Offer`, página de "vendido" en lugar de la portada.
+**Solución:** título automático estructurado por ficha ({Tipo} en venta en {Municipio}, {Zona} · {m²} m² · {Precio} € | SERRA-S) delante del titular comercial; inmueble como H1; listado con title/description propios; 301 de las URLs antiguas; `RealEstateListing`/`Offer`; páginas de comprar/vender/alquilar en la web corporativa enlazando a las fichas. Las plantillas las gestiona Inmovilla (se piden a través de ellos); alternativa: conector Inmovilla → WordPress para tener todo bajo www.serra-s.com.
 
 ### 3. ALTO · Las fichas antiguas de serra-s.com dan 404
 
@@ -67,9 +68,9 @@ Google todavía muestra `/es/compra/terrenos/barcelona/premia-de-dalt/528` (terr
 
 ### 5. MEDIO · Señalización de idiomas incompleta
 
-hreflang existe (WPML): la portada CA declara `ca`, `es` y `en`; la portada ES solo `ca` y `es`; contacto `ca` y `es`. **`/en/` existe (200)** pero no está en el sitemap, la portada ES no lo declara y Google no lo indexa. Páginas en catalán con coletilla en castellano; la portada de noticias en catalán tiene slug castellano (`/noticias/`), y hay posts con slug cruzado (`/es/quotes-hipotecaries-...-es-translation/`, `/cuotas-hipotecarias-mas-bajas-que-los-alquileres/` en CA).
+hreflang existe (WPML): la portada CA declara `ca`, `es` y `en`; la portada ES solo `ca` y `es`; contacto `ca` y `es`. **`/en/` responde 200 pero está vacía** (H1 "Nothing Found", title = tagline del sitio) y es indexable (`index, follow`); no está en el sitemap y Google no la indexa. Páginas en catalán con coletilla en castellano; la portada de noticias en catalán tiene slug castellano (`/noticias/`), y hay posts con slug cruzado (`/es/quotes-hipotecaries-...-es-translation/`, `/cuotas-hipotecarias-mas-bajas-que-los-alquileres/` en CA).
 
-**Solución:** hreflang coherente en todas las páginas, coletilla por idioma, completar la versión EN (portada, comprar, contacto) y meterla en el sitemap.
+**Solución:** hreflang coherente, coletilla por idioma, y con el inglés una de dos: versión EN real (portada, comprar, contacto) en el sitemap, o `noindex` en `/en/` y quitarla del hreflang.
 
 ### 6. MEDIO · La marca está escrita de tres maneras
 
@@ -100,7 +101,6 @@ Portales: "Carretera N-II km 673, Centro Comercial Carrefour" y "N-2, 11, 08398 
 - W3 Total Cache con Redis activo.
 - JSON-LD presente (el genérico de Yoast; falta `RealEstateAgent`).
 - Blog activo: 45 artículos en dos idiomas.
-- `/en/` existe y responde 200.
 
 ## Comprobaciones técnicas que entran en la Fase 1
 
@@ -166,7 +166,8 @@ Tres pasadas: (1) búsquedas en Google desde el entorno remoto, (2) workflow de 
 | Dos portadas en español duplicadas | **Refutado** | `/es/` → `/es/inicio/` → canonical al slug largo. Es cadena de redirecciones, no duplicado. Hallazgo 7. |
 | Fichas invisibles (1 indexada) | **Confirmado y agravado** | La web corporativa no tiene fichas; en serra-s.es solo 1 indexada. |
 | hreflang ⚠️ | **Comprobado**: existe pero inconsistente | CA declara `en` → `/en/`; ES no. `/en/` sin indexar ⚠️. |
-| Versión inglesa | `/en/` existe (200) pero fuera del sitemap y sin indexar | Hallazgo 5. |
+| Versión inglesa | `/en/` responde 200 pero está vacía ("Nothing Found"), indexable | Hallazgo 5. |
+| Todas las fichas de serra-s.es canonicalizan a la portada | **Refutado para fichas vivas** (3ª pasada) | Las fichas activas tienen URL amigable, title y canonical propios. Lo compartido es portada + listado + URLs antiguas. Hallazgo 2 reescrito: el problema es el title (titular comercial) y el H1. |
 | WordPress + WPML + Yoast | **Confirmado** | Tema Enfold, W3 Total Cache + Redis. |
 | Alt en imágenes | **Refutado para WP** (0 sin alt); **confirmado para serra-s.es** (7/16) | Movido a "lo que ya está bien" / comprobaciones. |
 | Marca en tres grafías | Confirmado | |
@@ -187,12 +188,14 @@ Tres pasadas: (1) búsquedas en Google desde el entorno remoto, (2) workflow de 
 
 1. **PageSpeed** móvil y escritorio de `https://www.serra-s.com/` en pagespeed.web.dev. Enfold + jquery-migrate + html5shiv: espera 40-60 en móvil. Si baja de 50, subir velocidad a hallazgo ALTO.
 2. **Google Maps**: nota, nº de reseñas y dirección de "SERRA-S immobiliàries" y de "Virtua Home Santa Susanna". Añadir al hallazgo 8.
-3. **Tercer script** (`comprobar-serra-s-3.sh`): title/description/canonical/H1 de una ficha VIVA de Inmovilla (desde `venta.php`) para confirmar que las fichas activas también canonicalizan a la portada, y qué hay en `/en/`. Si una ficha viva tiene su propio title y canonical, suavizar el punto "cada inmueble es una copia de la portada" a "las fichas vendidas muestran la portada".
+3. ~~Tercer script~~: hecho (15:28). Fichas vivas con URL/title/canonical propios; `/en/` vacía.
+4. **Recuento real de fichas indexadas**: en tu Google, `site:serra-s.es` y `site:serra-s.es/ficha`. Anota el número. Si son más de 5, cambia "solo muestra una ficha, y retirada" por el número real. El argumento se mantiene mientras sea una fracción pequeña de los 100+.
+5. Opcional: `curl -s https://www.serra-s.es/robots.txt` y `curl -s https://www.serra-s.es/sitemap.xml | head -30` para saber si Inmovilla publica sitemap de fichas.
 
 ## Riesgos y decisiones
 
 - **Plataforma = Inmovilla, plantilla antigua.** Dos vías para la Fase 2: (a) el cliente pide a Inmovilla el cambio a plantilla actual (Inmovilla lo hace; el SEO por inmueble y las URLs amigables van en sus plantillas nuevas; tú configuras textos y estructura); (b) conector Inmovilla → WordPress (hay plugins de terceros tipo plugininmovilla.com / propertify.es, con licencia anual). **Antes de cerrar la Fase 2, pide precio de la licencia del conector y confirma con el cliente qué contrato tienen con Inmovilla.** La vía (b) es la buena a largo plazo: todo bajo www.serra-s.com. Estimación extra si (b): 8-12 h de integración y plantillas.
-- **La afirmación "todas las fichas canonicalizan a la portada"** se ha visto en la ficha de Canet, que ya no existe (muestra la portada). Confírmala con el tercer script sobre una ficha viva antes de enviar; si no se cumple, el hallazgo 2 sigue siendo cierto por las URLs numéricas y el title/description compartidos.
+- **Plantillas de Inmovilla:** el title de ficha lo compone Inmovilla a partir del titular del anuncio. Cambiar a un patrón estructurado se pide a Inmovilla (soporte/diseño web); confirma con el cliente si tienen ese servicio contratado y cuánto tarda. Si Inmovilla no lo permite, la vía del conector a WordPress es la única que da control total. Mientras tanto, una mejora inmediata sin tocar plantillas: que el agente escriba los titulares en formato "Piso en venta en Santa Susanna, 3 hab, terraza, 189.000 €" en vez de "VIVE DE VACACIONES TODO EL AÑO". Eso lo puedes vender como formación de 1 hora dentro de la Fase 2.
 - **Fase 1 es ahora más sólida y más barata de ejecutar** que en la primera versión: todo es Yoast + WPML + redirecciones en `.htaccess`. 6-8 h. Margen bueno a 450 €.
 - **Las URLs fantasma de `/es/compra/...`** pueden ser cientos (todo el catálogo anterior). Pide en Search Console el listado de 404 antes de hacer las redirecciones; con una regla genérica `/es/compra/* → serra-s.es/compra` se resuelve en una línea.
 
