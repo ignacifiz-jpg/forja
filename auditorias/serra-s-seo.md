@@ -2,35 +2,33 @@
 
 **Fecha:** 7 de septiembre de 2026 · **Preparado por:** Sultox · **Para:** Serra-S Immobiliàries, Santa Susanna
 
-> Método: análisis de lo que Google tiene indexado de serra-s.com y serra-s.es (títulos reales que muestra en resultados), presencia en portales (idealista, habitaclia, buscainmobiliarias) y comparación con la competencia local. Los puntos marcados con ⚠️ requieren una comprobación manual antes de enviar (ver notas internas al final).
+> Método: comprobación directa de la web (títulos, descripciones, redirecciones, hreflang, robots, sitemap, plataforma) el 7 de septiembre de 2026, análisis de lo que Google tiene indexado de serra-s.com y serra-s.es, presencia en portales (idealista, habitaclia) y comparación con la competencia local.
 
 ---
 
 ## Resumen en 3 líneas
 
-1. La web existe y Google la tiene indexada, pero **no sabe qué es ni dónde está**: los títulos no mencionan "inmobiliaria" ni "Santa Susanna" y las fichas de inmuebles se titulan solo "SERRA-S".
-2. La web está **partida en tres sitios**: la web corporativa (www.serra-s.com), el buscador de inmuebles (serra-s.com/es, sin www) y la web antigua serra-s.es, que sigue indexada. La autoridad se reparte en vez de sumarse.
-3. Todo esto se arregla en **1 a 2 semanas** sin rehacer la web. Es trabajo de configuración y textos, no de diseño.
+1. La web corporativa está bien montada por dentro (WordPress, redirecciones, sitemap, caché), pero **Google no sabe qué es ni dónde está**: la portada se titula "Inici", ninguna página tiene descripción y Yoast SEO está instalado sin configurar.
+2. **Los inmuebles no están en la web.** Viven en otro dominio, serra-s.es, con URLs ilegibles y peor SEO. De más de 100 inmuebles, Google tiene uno indexado. Las fichas antiguas de serra-s.com dan 404.
+3. Lo primero se arregla en **una semana sin tocar el diseño**. Lo segundo depende de la plataforma de fichas; se confirma en esa misma semana.
 
 ---
 
 ## Hallazgos por prioridad
 
-### 1. CRÍTICO · Los títulos de página no dicen a qué os dedicáis ni dónde
+### 1. CRÍTICO · Los títulos no dicen a qué os dedicáis ni dónde, y no hay descripciones
 
-El título es lo primero que Google lee y lo que la gente ve en azul en los resultados. Esto es lo que muestra Google ahora mismo:
-
-| URL indexada | Título que muestra Google | Problema |
+| Página | `<title>` real | Meta description |
 |---|---|---|
-| `www.serra-s.com/` | SERRA-S inmobiliàries | El `<title>` real es "Inici" (Google lo muestra así en búsquedas con esa palabra y lo reescribe con el nombre en el resto). Sin servicio ni localidad |
-| `serra-s.com/es` | SERRA-S | Portada del buscador de inmuebles: solo la marca |
-| `/es/serra-s-inmobiliaries-compraventa-de-inmuebles/` | Inicio - SERRA-S immobiliàries | Portada en castellano, sin servicio ni localidad |
-| `/contacte/` | Contacte - SERRA-S inmobiliàries \| Compraventa de inmuebles, Alquiler | Página en catalán con coletilla en castellano |
-| `/es/compra/terrenos/barcelona/premia-de-dalt/528` | SERRA-S | Ficha de inmueble sin título descriptivo |
-| `/es/noticias/` | Noticias - SERRA-S inmobiliàries \| Compraventa de inmuebles, Alquiler | Demasiado largo, Google lo corta |
-| `/tipus-denergies-renovables-.../` | TIPUS D'ENERGIES RENOVABLES: ... - SERRA-S inmobiliàries \| Compraventa de inmuebles, Alquiler | Artículo en catalán con coletilla en castellano, cortado |
+| `www.serra-s.com/` | Inici | Ninguna |
+| `/es/serra-s-inmobiliaries-compraventa-de-inmuebles/` | Inicio | Ninguna |
+| `/contacte/` | Contacte - SERRA-S inmobiliàries \| Compraventa de inmuebles, Alquiler | Ninguna |
+| `/es/noticias/` | Noticias - SERRA-S inmobiliàries \| Compraventa de inmuebles, Alquiler | Google lo corta |
+| `www.serra-s.es/` | SERRA-S inmobiliàries \| Compraventa de inmuebles, Alquil... | "servicio de Broker hipotecario, Renta vitalicia, Certificados Energéticos, Cédulas de habitabilidad, seguros de impago y seguros de hogar" |
 
-Para comparar: la página de inmuebles en venta de VirtuaHome (`inmuebles.virtuahome.es/venta.php`) sale con el título "La Mejor Inmobiliaria de Santa Susana | VirtuaHome.es". Google los entiende. Su portada, en cambio, se titula "INICIO - VIRTUA HOME": la mayoría de agencias de la zona tienen el mismo problema, y quien lo arregle primero se lleva las búsquedas.
+Ni "inmobiliaria" ni "Santa Susanna" en ningún título. Google reescribe la portada a veces como "SERRA-S inmobiliàries". En serra-s.es el título ya viene cortado con "..." en el propio HTML.
+
+Para comparar: la página de inmuebles en venta de VirtuaHome (`inmuebles.virtuahome.es/venta.php`) sale como "La Mejor Inmobiliaria de Santa Susana | VirtuaHome.es". Su portada, en cambio, se titula "INICIO - VIRTUA HOME": la mayoría de agencias de la zona tienen el mismo problema, y quien lo arregle primero se lleva las búsquedas. En Santa Susanna hay 47 agencias en idealista.
 
 **Títulos propuestos**
 
@@ -43,61 +41,67 @@ Para comparar: la página de inmuebles en venta de VirtuaHome (`inmuebles.virtua
 | Ficha inmueble (automático) | {Tipo} en venda a {Municipi} · {m²} m² · {Preu} € \| SERRA-S | {Tipo} en venta en {Municipio} · {m²} m² · {Precio} € \| SERRA-S |
 | Noticias | Notícies del mercat immobiliari al Maresme \| SERRA-S | Noticias del mercado inmobiliario en el Maresme \| SERRA-S |
 
-Cada página necesita además una **descripción para buscadores** (meta description) de 140 a 155 caracteres con el teléfono y la zona. Hoy la portada no tiene ninguna ⚠️ (observación tuya del primer correo; los agentes no pudieron leer el HTML).
+Cada página necesita además una **meta description** de 140 a 155 caracteres con el teléfono y la zona.
 
-### 2. CRÍTICO · La web está partida en tres sitios
+**Solución:** Yoast SEO está instalado y activo (robots y sitemap los genera él). Solo hay que rellenar títulos y descripciones por página en CA y ES. Configuración, no programación.
 
-Google tiene indexados tres sitios distintos con la marca:
+### 2. CRÍTICO · Los inmuebles viven fuera de la web y Google no los ve
 
-- `https://www.serra-s.com`: la web corporativa (WordPress con WPML y Yoast: portada, contacto, noticias).
-- `https://serra-s.com/es` (sin www): el **buscador de inmuebles**, una aplicación distinta que Google indexa como sitio aparte con el título "SERRA-S" a secas. También cuelga de ahí `serra-s.com/es/content/certif-energetico` con el título "certificado energético" sin marca. Ambos hosts resuelven a la misma IP: es el mismo servidor, mal configurado.
-- `https://www.serra-s.es`: la web antigua (plantilla PHP tipo CRM). Sigue indexada con al menos 4 URLs: portada, `/index.php?vistas=1` (copia de la portada), `/seccion/company/company/en/` (página "Company" en inglés) y la ficha `/ficha/index.php?codigo=12449_23982185` (casa en Canet de Mar, que también aparece en otras agencias como HG-CAN-27 a 315.000 €). Anuncia broker hipotecario, renta vitalicia, cédulas y seguros; en la web nueva solo hemos localizado el certificado energético.
+- `www.serra-s.com` (WordPress, tema Enfold, WPML, Yoast, W3 Total Cache) **no tiene ninguna ficha de inmueble**: el sitemap solo tiene `post-sitemap`, `page-sitemap` y `category-sitemap`.
+- Los inmuebles están en `www.serra-s.es`, la plataforma de fichas (activa: assets con fecha 2026-07-29). URLs tipo `/ficha/index.php?codigo=12449_23982185`. Su portada, servida sin idioma, sale en inglés con `canonical` a `/en`, descripción = lista de servicios, 6 H1 y 7 de 16 imágenes sin alt.
+- Resultado: 85 inmuebles en idealista y 111 en habitaclia; Google tiene **una** ficha indexada (casa en Canet de Mar, `codigo=12449_23982185`).
 
-Cada enlace, cada visita y cada señal de autoridad se reparte entre tres sitios. Quien entra por la antigua ve una web desactualizada; quien entra por el buscador no ve ni el nombre completo de la agencia en el título.
+**Solución:** título, descripción y datos estructurados (`RealEstateListing` / `Offer`) automáticos por ficha; URLs legibles; enlazar las fichas desde la web corporativa. Se hace sobre la plataforma actual; si su proveedor no permite tocar plantillas, avisar tras la Fase 1 y proponer alternativa con precio cerrado.
 
-**Solución:** redirección 301 permanente de serra-s.es hacia `https://www.serra-s.com`, página por página cuando haya equivalente; el buscador de inmuebles bajo el mismo dominio con www. Etiqueta canonical en todas las páginas. Recuperar en la web actual los servicios que solo están en la antigua.
+### 3. ALTO · Las fichas antiguas de serra-s.com dan 404
 
-### 3. ALTO · Las fichas de inmuebles son invisibles en Google
+Google todavía muestra `/es/compra/terrenos/barcelona/premia-de-dalt/528` (terreno en Premià de Dalt, ref. PD270720T, 660.000 €). Hoy responde "Page not found" con `noindex`. También indexa `serra-s.com/es` con título "SERRA-S" y snippet "Tu portal inmobiliario de confianza": es el fantasma del buscador anterior, que vivía en serra-s.com/es y ahora está en serra-s.es. Se cambió de plataforma sin redirigir.
 
-Tenéis 85 inmuebles en venta en idealista y 111 en habitaclia (cifras del 7 de septiembre). Cada ficha en vuestra web debería posicionar por "casa en venta en Canet de Mar" o "terreno en Premià de Dalt". Hoy Google solo tiene indexada **una** ficha de toda la cartera (`/es/compra/terrenos/barcelona/premia-de-dalt/528`, terreno de 862 m² en Premià de Dalt, ref. PD270720T, 660.000 €), y la muestra con el título "SERRA-S" a secas; cuando la búsqueda coincide con el texto, Google se inventa el título a partir del encabezado ("Suelo de 862m 2 en calle de suissa, 28, en Premià de Dalt"), sin precio. No hay ninguna URL de alquiler indexada. Toda esa demanda se la llevan los portales, y ahí pagáis por aparecer.
+**Solución:** 301 de todas las URLs antiguas del buscador (`/es/compra/...`, `/es/content/...`) a su equivalente en serra-s.es o a la página de compra. Retirada en Search Console.
 
-**Solución:** plantilla automática de título y descripción por ficha (tipo, municipio, m², precio, referencia) y datos estructurados (schema.org `RealEstateListing` / `Offer`) para que Google entienda precio y ubicación.
+### 4. MEDIO · Señalización de idiomas incompleta
 
-### 4. ALTO · La portada en castellano está escondida
+hreflang existe (WPML): la portada CA declara `ca`, `es` y `en` (`/en/`); la portada ES declara solo `ca` y `es`; contacto declara `ca` y `es` (`/es/contacto/`). No hay ninguna URL `/en/` indexada en Google ⚠️ (comprobar si `/en/` existe). Las páginas en catalán llevan la coletilla del título en castellano.
 
-La portada corporativa en castellano vive en `/es/serra-s-inmobiliaries-compraventa-de-inmuebles/` (slug largo que nadie escribe ni enlaza), mientras que `serra-s.com/es`, la dirección natural, la ocupa el buscador de inmuebles con otro diseño y otro título ("SERRA-S" / "Tu portal inmobiliario de confianza"). No son duplicados: son dos webs distintas para el mismo usuario según por dónde entre. Solución: una sola portada en castellano en `www.serra-s.com/es/` con el buscador integrado o enlazado, y redirección desde el slug largo.
+**Solución:** hreflang coherente en todas las páginas, coletilla por idioma, y versión EN real mínima (portada, comprar, contacto) si quieren comprador extranjero.
 
-### 5. MEDIO · Páginas basura indexadas
+### 5. MEDIO · La marca está escrita de tres maneras
 
-`/es/category/sense-categoria-es/` ("Sense categoria Archives") está indexada. Es el archivo de "Sin categoría" de WordPress. Aporta cero y resta calidad al conjunto del sitio. Solución: `noindex` en archivos de categoría, etiqueta, autor y adjuntos.
+"SERRA-S **inmobiliàries**" (títulos de la web y de serra-s.es), "SERRA-S **immobiliàries**" (idealista, logo), "SERRA-S **Gestions Immobiliàries**" (habitaclia, firma de correo). Elegir una y usarla en web, portales, Google Business y redes.
 
-### 6. MEDIO · La marca está escrita de tres maneras
+### 6. MEDIO · Páginas basura indexadas
 
-En los títulos de la web predomina "SERRA-S **inmobiliàries**" (mezcla castellano-catalán: portada, contacto, noticias, categorías, blog y también la web antigua). Solo la portada en castellano usa "SERRA-S **immobiliàries**" (catalán correcto, como en idealista), y en habitaclia (slug `serra_s_gestions_immobiliaries`) y en la firma de correo del cliente aparece "SERRA-S **Gestions Immobiliàries**". Google lo trata como tres nombres distintos. Elegir uno y usarlo en web, portales, Google Business y redes.
+`/es/category/sense-categoria-es/` ("Sense categoria Archives") está indexada y además el `category-sitemap.xml` se la ofrece a Google. Solución: `noindex` en archivos de categoría, etiqueta, autor y adjuntos, y desactivar el sitemap de categorías en Yoast.
 
-### 7. MEDIO · Idiomas mezclados y sin señalización
+### 7. MEDIO · Portada en castellano con URL larga y dos saltos
 
-Las páginas en catalán (contacto, artículos del blog) llevan la coletilla del título en castellano. La web tiene raíz para catalán y `/es/` para castellano. **No existe versión inglesa indexada** (ninguna URL bajo `/en/` ni con título en inglés; la web antigua sí tenía `/seccion/company/company/en/`). Hay que comprobar las etiquetas `hreflang` CA/ES ⚠️ y, dado que en Santa Susanna hay mucho comprador extranjero, proponer una versión EN mínima (portada, comprar, contacto).
+`serra-s.com/es` → 301 → `www.serra-s.com/es` → 301 → `/es/inicio/` → canonical a `/es/serra-s-inmobiliaries-compraventa-de-inmuebles/` (la que Google indexa como "Inicio"). Funciona, pero son tres URLs para una página. Solución: portada ES en `/es/` y 301 desde las otras dos.
 
 ### 8. MEDIO · Datos de contacto inconsistentes fuera de la web
 
-En los portales la dirección aparece como "Carretera N-II km 673, Centro Comercial Carrefour" y también como "N-2, 11, 08398 Santa Susanna". Google Maps cruza estos datos: si no coinciden, baja la confianza en la ficha de Google Business Profile ⚠️. Unificar nombre, dirección, teléfono y horario en web, Google Business, idealista, habitaclia y Facebook.
-
-Horario a publicar (según portales): L-S 10:00-13:30 y 17:00-20:30 · Domingos y festivos 10:00-13:00.
+Portales: "Carretera N-II km 673, Centro Comercial Carrefour" y "N-2, 11, 08398 Santa Susanna". Unificar NAP en web, Google Business, idealista, habitaclia y Facebook. Horario: L-S 10:00-13:30 y 17:00-20:30 · domingos y festivos 10:00-13:00. Teléfonos: 93 102 84 44 y 675 142 221. Email: info@serra-s.com.
 
 ---
 
+## Lo que ya está bien (comprobado)
+
+- Redirecciones http → https y sin www → www: 301 correctas.
+- `robots.txt` (Yoast, sin bloqueos) y `sitemap_index.xml` correctos.
+- Canonical en cada página.
+- Todas las imágenes de la web corporativa con alt (18/18 portada CA, 15/15 portada ES, 11/11 contacto).
+- Un solo H1 por página en WordPress.
+- `lang="ca"` / `lang="es-ES"` declarado.
+- W3 Total Cache con Redis activo.
+- JSON-LD presente (el genérico de Yoast; falta `RealEstateAgent`).
+
 ## Comprobaciones técnicas que entran en la Fase 1
 
-Se revisan y corrigen dentro del pack, no se cobran aparte:
-
-- Velocidad y Core Web Vitals (PageSpeed Insights móvil y escritorio)
-- Un solo H1 por página y jerarquía de encabezados
-- Textos alternativos en fotos de inmuebles
-- `robots.txt` y `sitemap.xml` enviados a Google Search Console
-- Datos estructurados `RealEstateAgent` (nombre, dirección, teléfono, horario, zona)
-- Certificado SSL y redirección http → https
-- Versión móvil y tamaño de botones de llamada / WhatsApp
+- Velocidad y Core Web Vitals (PageSpeed móvil y escritorio) ⚠️ pendiente
+- Datos estructurados `RealEstateAgent`
+- Google Business Profile ⚠️ pendiente
+- Search Console configurado y sitemap enviado
+- Alt en fotos de serra-s.es
+- Versión móvil y botones de llamada / WhatsApp
 
 ---
 
@@ -105,89 +109,83 @@ Se revisan y corrigen dentro del pack, no se cobran aparte:
 
 | Fase | Qué incluye | Plazo | Precio cerrado |
 |---|---|---|---|
-| **Fase 1 · Base** | Redirecciones 301 (serra-s.es y sin www), canonical, títulos y descripciones de las páginas principales en CA/ES, noindex de páginas basura, marca unificada, Google Business Profile revisado, Search Console configurado | 1 semana | **450 €** |
-| **Fase 2 · Inmuebles y zona** | Plantilla automática de título y descripción para todas las fichas y conseguir que Google las indexe todas, portada en castellano unificada con el buscador, datos estructurados de inmuebles y agencia, hreflang CA/ES y versión EN mínima, 5 páginas de zona (Santa Susanna, Malgrat, Pineda, Calella, Canet), mejora de velocidad, recuperar servicios de la web antigua | 2 semanas | **890 €** |
+| **Fase 1 · Base** | Títulos y descripciones de todas las páginas en CA/ES (Yoast), 301 de las URLs antiguas del buscador, hreflang coherente, noindex de archivos + sitemap de categorías fuera, portada ES en `/es/`, marca unificada, Google Business Profile, Search Console, `RealEstateAgent`, diagnóstico de la plataforma de fichas | 1 semana | **450 €** |
+| **Fase 2 · Inmuebles y zona** | Título, descripción y datos estructurados automáticos en todas las fichas de serra-s.es, URLs legibles si la plataforma lo permite, fichas enlazadas desde la web corporativa, versión EN mínima, 5 páginas de zona (Santa Susanna, Malgrat, Pineda, Calella, Canet), mejora de velocidad | 2 semanas | **890 €** |
 | Fase 1 + 2 juntas | Todo lo anterior | 3 semanas | **1.190 €** |
 
-Sin cuotas mensuales. Entrega con informe de antes y después en Search Console. Si preferís hacerlo con vuestro proveedor actual, este documento sirve como lista de tareas.
+La Fase 2 se hace sobre la plataforma de fichas actual. Si su proveedor no permite modificar plantillas, se avisa al acabar la Fase 1 y se propone alternativa con precio cerrado antes de empezar. Sin cuotas mensuales.
 
 ---
 
 ## Qué esperar
 
 - Semanas 1-2: Google reindexa títulos nuevos. Empezáis a aparecer por "inmobiliaria Santa Susanna" y variantes.
-- Mes 1-2: las fichas de inmuebles empiezan a recibir visitas directas desde Google sin pasar por idealista.
+- Mes 1-2: las fichas empiezan a recibir visitas directas desde Google sin pasar por idealista.
 - Mes 3: con las páginas de zona, presencia en los 5 municipios del Alt Maresme donde tenéis cartera.
 
 ---
 
 ## Fuentes consultadas
 
+- Comprobación directa el 7 sep 2026 con `auditorias/comprobar-serra-s.sh` (salida en el Escritorio de Nacho, `serra-s-check.txt`)
 - [Portada indexada de serra-s.com](https://www.serra-s.com/)
-- [Ficha de terreno en Premià de Dalt (título "SERRA-S")](https://www.serra-s.com/es/compra/terrenos/barcelona/premia-de-dalt/528)
-- [Segunda portada en español "Inicio"](https://www.serra-s.com/es/serra-s-inmobiliaries-compraventa-de-inmuebles/)
-- [Archivo "Sense categoria" indexado](https://www.serra-s.com/es/category/sense-categoria-es/)
-- [Noticias](https://www.serra-s.com/es/noticias/)
-- [Artículo energías renovables](https://www.serra-s.com/tipus-denergies-renovables-quina-es-la-millor-opcio-per-a-la-teva-llar-o-empresa/)
-- [Web antigua serra-s.es](https://www.serra-s.es/) · [ficha antigua](https://www.serra-s.es/ficha/index.php?codigo=12449_23982185)
+- [Ficha fantasma de Premià de Dalt (404)](https://www.serra-s.com/es/compra/terrenos/barcelona/premia-de-dalt/528)
+- [Portada ES "Inicio"](https://www.serra-s.com/es/serra-s-inmobiliaries-compraventa-de-inmuebles/)
+- [Archivo "Sense categoria"](https://www.serra-s.com/es/category/sense-categoria-es/)
+- [Noticias](https://www.serra-s.com/es/noticias/) · [Contacte](https://www.serra-s.com/contacte/)
+- [Plataforma de fichas serra-s.es](https://www.serra-s.es/) · [ficha Canet](https://www.serra-s.es/ficha/index.php?codigo=12449_23982185)
 - [SERRA-S en idealista (85 inmuebles)](https://www.idealista.com/pro/serra-s-immobiliaries/)
 - [SERRA-S en habitaclia](https://english.habitaclia.com/real_estate-serra_s_gestions_immobiliaries_50274_1/)
-- [SERRA-S en buscainmobiliarias](https://www.buscainmobiliarias.com/inmobiliaria/serra-s-immobiliaries)
-- [Agencias en Santa Susanna, idealista (47 agencias)](https://www.idealista.com/en/agencias-inmobiliarias/santa-susanna-barcelona/inmobiliarias)
-- [Competidor Virtua Home](https://www.virtuahome.es/)
-- [Canal YouTube SERRA-S](https://www.youtube.com/@SERRA-Simmobiliaries)
+- [Agencias en Santa Susanna, idealista](https://www.idealista.com/en/agencias-inmobiliarias/santa-susanna-barcelona/inmobiliarias)
+- [VirtuaHome venta](https://www.inmuebles.virtuahome.es/venta.php) · [VirtuaHome portada](https://www.virtuahome.es/?idio=8)
 
 ---
 ---
 
 # NOTAS INTERNAS (no enviar al cliente)
 
-## Verificación multiagente (7 sep 2026)
+## Estado de verificación (7 sep 2026)
 
-Se lanzaron 12 verificadores independientes (uno por afirmación) + escépticos + descubrimiento + crítico. Los 12 verificadores terminaron; 9 escépticos, los 5 de descubrimiento y el crítico fallaron por límite de uso de la cuenta y agotamiento del cupo de búsquedas (200/200). Ningún agente pudo abrir serra-s.com, serra-s.es, idealista, habitaclia, virtuahome ni Google Maps: el proxy bloquea todo. Toda la evidencia son títulos y snippets de Google.
+Tres pasadas: (1) búsquedas en Google desde el entorno remoto, (2) workflow de 12 verificadores + escépticos (9 escépticos, 5 de descubrimiento y el crítico cayeron por límite de uso), (3) script `comprobar-serra-s.sh` ejecutado desde el Mac de Nacho contra la web real.
 
-| Afirmación | Veredicto | Qué cambió en el informe |
+| Afirmación original | Estado final | Qué se hizo |
 |---|---|---|
-| Portada indexada como "SERRA-S inmobiliàries" / `<title>` "Inici" | Parcial (0,85) | Google muestra "Inici" en búsquedas con esa palabra y "SERRA-S inmobiliàries" en el resto: encaja con tu observación. Redactado así. |
-| Sin www indexado aparte | Parcial (0,75) | Solo `serra-s.com/es` y `/es/content/certif-energetico` sin www. Es el buscador de inmuebles (app distinta), misma IP. Hallazgo 2 reescrito. |
-| "Inicio" = segunda portada duplicada | Parcial (0,75) | No es duplicado: "Inicio" es la portada WP en castellano; `/es` es el buscador. Hallazgo 4 reescrito. |
-| Fichas tituladas "SERRA-S" | Parcial (0,80) + confirmado a mano | Cierto en búsquedas `site:`; con coincidencia de texto Google reescribe el título desde el H1. `site:serra-s.com/es/compra` devuelve **1 sola ficha** (2ª pasada). Ninguna URL de alquiler. Hallazgo 3 reforzado. |
-| Noticias / blog con coletilla en castellano | Confirmado (0,85) | Añadido `/contacte/` con el mismo patrón. |
-| serra-s.es viva e indexada con servicios | Confirmado (0,85) | 4 URLs indexadas, incluida una "Company" en inglés. No se pudo comprobar si redirige (deducido de la indexación). Certificado energético sí existe en la nueva. |
-| "Sense categoria" indexado / WordPress | Confirmado (0,90) | WordPress + WPML (slug `-es`) + Yoast (plantilla "Archives"). |
-| Marca con dos grafías | Confirmado (0,90) | Son tres: añadida "Gestions Immobiliàries" (habitaclia y firma de correo). |
-| 85 idealista / 111 habitaclia / 47 agencias | Confirmado después a mano (7 sep, 2ª pasada) | Título de idealista "85 casas y pisos en venta"; buscainmobiliarias suma 111-112 inmuebles por tipología; 47 agencias en el listado de idealista. |
-| Título de VirtuaHome | **Corregido** (7 sep, 2ª pasada) | Ese título es de `inmuebles.virtuahome.es/venta.php`, no de su portada, que sale como "INICIO - VIRTUA HOME" (`virtuahome.es/?idio=8`). Reescrito en ambos documentos como ventaja: la competencia también lo tiene mal. |
-| Dirección doble, teléfonos, horario | Parcial (0,45) | Snippets de Google confirman N-II km 673 Carrefour, teléfonos y horario. La forma "N-2, 11" salió en un snippet de habitaclia. Comprobar en la ficha. |
-| Versión inglesa de la web | **Refutado** (0,40 + 2ª pasada) | `site:serra-s.com/en` y `inurl:/en/`: cero resultados. Lo de "habla inglés" es el personal (idealista), no la web. Corregido en hallazgo 7 y en los packs. |
+| `<title>` de la portada = "Inici" | **Confirmado** (HTML real) | Google lo reescribe a veces como "SERRA-S inmobiliàries". |
+| Sin meta description | **Confirmado** en portada CA, portada ES y contacto | Yoast instalado (5 referencias) sin rellenar. |
+| Sin www indexado como sitio aparte | **Refutado** | `serra-s.com` → 301 → `www`. Lo indexado en `serra-s.com/es` es un fantasma del buscador anterior. Hallazgo eliminado. |
+| Buscador de inmuebles en `serra-s.com/es` | **Refutado / cambiado** | Ya no existe: `/es/compra/.../528` da 404 con noindex. El buscador vive en serra-s.es. Nuevo hallazgo 3 (404s sin redirigir). |
+| serra-s.es = web antigua abandonada | **Refutado** | Es la plataforma de fichas activa (assets 2026-07-29). No llamarla "antigua" delante del cliente. |
+| Dos portadas en español duplicadas | **Refutado** | `/es/` → `/es/inicio/` → canonical al slug largo. Es cadena de redirecciones, no duplicado. Hallazgo 7. |
+| Fichas invisibles (1 indexada) | **Confirmado y agravado** | La web corporativa no tiene fichas; en serra-s.es solo 1 indexada. |
+| hreflang ⚠️ | **Comprobado**: existe pero inconsistente | CA declara `en` → `/en/`; ES no. `/en/` sin indexar ⚠️. |
+| Versión inglesa | Sin páginas indexadas; `/en/` declarado en hreflang | Pendiente: `curl` a `/en/` (ver abajo). |
+| WordPress + WPML + Yoast | **Confirmado** | Tema Enfold, W3 Total Cache + Redis. |
+| Alt en imágenes | **Refutado para WP** (0 sin alt); **confirmado para serra-s.es** (7/16) | Movido a "lo que ya está bien" / comprobaciones. |
+| Marca en tres grafías | Confirmado | |
+| Sense categoria indexado | Confirmado + está en `category-sitemap.xml` | |
+| 85 / 111 / 47 | Confirmado en títulos de Google (7 sep) | |
+| Título VirtuaHome | Corregido: es de `inmuebles.virtuahome.es/venta.php`; portada "INICIO - VIRTUA HOME" | |
+| NAP doble | Visto en snippets; comprobar en Maps ⚠️ | |
 
-## Qué no he podido verificar y por qué
+## Pendiente (5 minutos desde el Mac)
 
-El entorno donde se ha hecho el análisis bloquea el acceso directo a serra-s.com, serra-s.es, archive.org y buscainmobiliarias. Todo lo de arriba sale de lo que Google tiene indexado (títulos reales en SERP) y de portales. Es sólido para títulos, dominios duplicados y páginas basura. Lo marcado con ⚠️ hay que confirmarlo desde tu PC antes de enviar. Son 10 minutos:
+1. **PageSpeed** móvil y escritorio de `https://www.serra-s.com/` en pagespeed.web.dev. Enfold + jquery-migrate + html5shiv: espera 40-60 en móvil. Si baja de 50, subir velocidad a hallazgo ALTO.
+2. **Google Maps**: nota, nº de reseñas y dirección de "SERRA-S immobiliàries" y de "Virtua Home Santa Susanna". Añadir al hallazgo 8.
+3. **Segundo script** (bloque `serra-s-check2`): estado de `/en/`, lista completa de páginas y posts del sitemap, serra-s.es en castellano, enlaces de la web corporativa hacia serra-s.es, y pistas del proveedor de la plataforma de fichas.
 
-1. **Título "Inici"**: abre `view-source:https://www.serra-s.com/` y busca `<title>`. Google muestra "SERRA-S inmobiliàries" para la portada, así que puede que el `<title>` real sea "Inici" y Google lo reescriba, o que lo hayan cambiado desde tu primer correo. Si ya no es "Inici", en el informe deja la fila tal como está (sin servicio ni localidad sigue siendo cierto).
-2. **Meta description**: en el mismo view-source busca `name="description"`. Si existe, cambia la frase "Hoy la portada no tiene ninguna" por "la actual no menciona Santa Susanna ni el teléfono" (o lo que toque).
-3. **serra-s.es**: abre `https://www.serra-s.es/` y confirma que carga la web antigua y no redirige. Si redirige ya a .com, quita ese punto del hallazgo 2 (deja solo el sin-www).
-4. **Sin www**: abre `https://serra-s.com/es` y mira si redirige a www. Si redirige, el problema es solo de indexación vieja (menor).
-5. **hreflang**: en view-source busca `hreflang`. Si existe, quita el ⚠️ del punto 7 y deja solo lo de la coletilla en castellano.
-6. **Servicios de la web antigua**: comprueba si serra-s.com tiene página de hipotecas / renta vitalicia / certificados. Si la tiene, quita esa frase del punto 2.
-7. **Google Business Profile**: busca "SERRA-S immobiliàries" en Google Maps y anota número de reseñas, nota media y dirección exacta. Añade una frase al punto 8 con el dato real ("tenéis X reseñas con nota Y; VirtuaHome tiene Z").
-8. **PageSpeed**: pasa `https://pagespeed.web.dev/` sobre la portada móvil y añade la nota (si sale por debajo de 50 en móvil, súbelo a hallazgo ALTO).
-9. **Plataforma**: la parte corporativa es WordPress seguro (WPML + Yoast). El buscador de inmuebles (`serra-s.com/es/compra/...`, ids numéricos) es otra aplicación, probablemente un CRM inmobiliario. Abre `view-source:https://serra-s.com/es` y busca el nombre del proveedor (Inmovilla, Witei, Mobilia, Inmoweb...). Las plantillas de fichas y que Google las indexe dependen de lo que permita ese CRM: si es cerrado, sube la Fase 2 a 990.
-10. ~~Título de VirtuaHome y cifras de portales~~: hecho en la 2ª pasada (ver tabla).
-11. ~~Fichas indexadas~~: hecho, 1 sola ficha.
-12. **Google Maps**: los buscadores no devuelven la ficha de Google Business de Serra-S. Búscala en Maps y anota nota, nº de reseñas y dirección exacta; haz lo mismo con Virtua Home. Añade la frase al hallazgo 8.
+## Riesgos y decisiones
 
-## Precios
-
-Los precios (450 / 890 / 1.190) son propuesta mía para "cerrados, sin cuotas". Horas estimadas: Fase 1 unas 8-10 h, Fase 2 unas 16-20 h. A 45 €/h sale ajustado. Si quieres margen para negociar, sube Fase 2 a 990 y el pack a 1.290. No bajes de 400 la Fase 1: es la que trae el resultado visible y te sirve de puerta de entrada.
+- **Plataforma de fichas desconocida.** Scripts de serra-s.es: `buscadorareas/componentes-v3-externo.js`, `js/EnviarPostHog.js`, `js/modulos/...` con cache-busting `?x=20260729111100`. No es Inmovilla ni Witei a simple vista; parece desarrollo a medida de un proveedor local. Pregunta al cliente quién les lleva serra-s.es antes de comprometer la Fase 2. Por eso el informe dice "si su proveedor no permite modificar plantillas, os proponemos alternativa con precio cerrado".
+- **Alternativa si la plataforma es cerrada:** traer las fichas a WordPress con un plugin inmobiliario (conector XML/feed del CRM) y dejar serra-s.es como espejo con canonical a la web. Estimar aparte: 8-12 h extra.
+- **Fase 1 es ahora más sólida y más barata de ejecutar** que en la primera versión: todo es Yoast + WPML + redirecciones en `.htaccess`. 6-8 h. Margen bueno a 450 €.
+- **Las URLs fantasma de `/es/compra/...`** pueden ser cientos (todo el catálogo anterior). Pide en Search Console el listado de 404 antes de hacer las redirecciones; con una regla genérica `/es/compra/* → serra-s.es/compra` se resuelve en una línea.
 
 ## Mensaje para enviar el informe (WhatsApp o email)
 
 > Hola, buenos días. Os paso la auditoría de serra-s.com como quedamos: [enlace].
 >
-> Resumen rápido: la web está bien indexada pero Google no sabe que sois una inmobiliaria de Santa Susanna (títulos sin servicio ni localidad, fichas de inmuebles que se titulan solo "SERRA-S") y tenéis tres versiones de la web compitiendo entre sí (www, sin www y la antigua serra-s.es). Nada de esto obliga a rehacer la web, es configuración y textos.
+> Resumen rápido: la web corporativa está bien montada por dentro, pero Google no sabe que sois una inmobiliaria de Santa Susanna: la portada se titula "Inici", no hay descripciones en ninguna página y el plugin de SEO está instalado sin configurar. Y lo más importante: los inmuebles no están en la web, viven en serra-s.es con direcciones ilegibles, y de más de 100 inmuebles Google solo tiene uno indexado. Nada de esto obliga a rehacer la web.
 >
 > En el informe tenéis qué arreglar primero y el precio cerrado si queréis que lo hagamos nosotros (Fase 1 en una semana, 450 €). Si lo preferís hacer con vuestro proveedor, el documento sirve como lista de tareas.
 >
-> Si os cuadra, lo vemos en una llamada de 15 minutos cuando os vaya bien. Un saludo, Nacho · Sultox · 722 83 50 57
+> Una pregunta para afinar la segunda fase: ¿quién os lleva la plataforma de fichas de serra-s.es? Si os cuadra, lo vemos en una llamada de 15 minutos cuando os vaya bien. Un saludo, Nacho · Sultox · 722 83 50 57
