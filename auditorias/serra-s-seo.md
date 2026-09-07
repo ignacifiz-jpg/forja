@@ -202,6 +202,7 @@ Tres pasadas: (1) búsquedas en Google desde el entorno remoto, (2) workflow de 
 ## Enviado
 
 - **7 sep 2026, 20:41 (hora servidor)**: auditoría completa enviada por email a info@serra-s.com como respuesta en el hilo "Serra-S Immobiliàries: un detalle de vuestra web" (mensaje `1a07d9c2dc95e253`). Cuerpo HTML con los 9 hallazgos, lo que ya está bien, packs 450 / 890 / 1.190 € y cierre proponiendo llamada de 15 min. Sin adjunto (PDF disponible en local si lo piden).
+- **7 sep 2026, 20:47**: segundo correo en el mismo hilo con el informe en PDF adjunto (`Auditoria-SEO-Serra-S-Sultox.pdf`, 6 páginas, 18 KB; generado con `serra-s-seo-informe-pdf.py`).
 - Seguimiento: si no responden en 3 días laborables, WhatsApp corto recordando el correo y ofreciendo la llamada.
 
 ## Mensaje para enviar el informe (WhatsApp o email)
