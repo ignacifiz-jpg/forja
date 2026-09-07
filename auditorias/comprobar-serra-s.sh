@@ -1,8 +1,3 @@
-#!/bin/bash
-# Comprobaciones de serra-s.com desde macOS / Linux (usa curl y perl, incluidos de serie).
-# Uso:  bash comprobar-serra-s.sh
-# Deja el resultado en ~/Desktop/serra-s-check.txt y lo abre en TextEdit.
-
 out="$HOME/Desktop/serra-s-check.txt"
 UA='Mozilla/5.0 (Macintosh) Sultox-check'
 
@@ -33,7 +28,7 @@ check() {
     my $yo   = () = /yoast/ig;
     my $ld   = () = /application\/ld\+json/g;
     my @imgs = /<img[^>]*>/ig;
-    my $noalt = grep { !/alt=/i } @imgs;
+    my $noalt = grep { not /alt=/i } @imgs;
     print "wp-content: $wp | wpml: $wpml | yoast: $yo | json-ld: $ld | imagenes: ", scalar(@imgs), " | sin alt: $noalt\n";
     print "scripts:\n";
     my $c = 0;
